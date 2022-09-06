@@ -13,7 +13,7 @@ use DataTables;
 class GastosController extends Controller
 {
     //
-    public function lista(Request $request)
+    public function listar(Request $request) 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
         $lista=Gasto::get();

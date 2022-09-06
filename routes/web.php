@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 //AJAX
 Route::prefix('json')->group(function () {
-    Route::post('gastos/listar','Api\GastosController@cambiar_contrasena');      
+    Route::get('gastos/listar','Api\GastosController@listar')->name('listaGastos');      
 
 });
 

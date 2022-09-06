@@ -9,13 +9,12 @@
             </div>
             <div>
                 <div class="d-flex mb-3">
-                  <h1 class="m-0">Plataforma de Servicios Digitales</h1>
+                  <h1 class="m-0">Plataforma de tesoreria</h1>
                 </div>
             </div>
             <p style="text-align: justify;">
-            La Plataforma de Servicios Digitales del Gobierno Región de Madre de Dios proporciona a los funcionarios de la institución herramientas para el desempeño de sus funciones en el marco de la modernización y simplificación administrativa mediante el uso estratégico de las tecnologías digitales.
+            La de tesoreria del Gobierno Región de Madre de Dios proporciona a los funcionarios de la institución herramienta para el desempeño de sus funciones en el marco de la modernización y simplificación administrativa mediante el uso estratégico de las tecnologías digitales.
             </p>
-            <p style="text-align: justify;">Para el registro de cuentas de usuario, actualización de datos y cambios de contraseña, póngase en contacto con la Unidad de Informática del Gobierno Regional de Madre de Dios.</p>
         </div>
         <div class="col-md-5">
             <div class="card card-md">
