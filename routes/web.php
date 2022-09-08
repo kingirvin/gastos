@@ -16,12 +16,27 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth./login');
 });
+Route::post('nuevo','Api\GastosController@nuevo');      
 
 Auth::routes();
 //AJAX
-Route::prefix('json')->group(function () {
-    Route::get('gastos/listar','Api\GastosController@listar')->name('listaGastos');      
-
+Route::prefix('vista')->group(function () {
+    Route::get('giro','AdminController@giro');     
+    Route::get('conciliacion','AdminController@conciliacion');      
+    Route::get('usuarios','AdminController@usuario') ;     
 });
+Route::prefix('json')->group(function () {
+    Route::get('giro/listar','Api\GiroController@listar')->name('listaGiro');      
+    Route::get('conciliacion/listar','Api\ConciliacionController@listar')->name('listaConciliacion');      
+    Route::post('giro/nuevo','Api\GiroController@nuevo'); 
+    Route::post('conciliacion/nuevo','Api\ConciliacionController@nuevo'); 
+    Route::post('conciliacion/buscar','Api\ConciliacionController@buscar'); 
+    Route::post('conciliacion/eliminar','Api\ConciliacionController@eliminar');
+    Route::get('conciliacion/listaidnombre','Api\ConciliacionController@listaIdNombre'); 
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('usuarios/listar','Api\UserController@listar')->name('listaUsuarios');      
+    Route::post('/usuarios/nuevo','Api\UserController@nuevo');      
+    Route::post('/usuarios/estado','Api\UserController@estado');      
+
+    //Route::post('usuarios/nuevo','Api\GiroController@listar')->name('listaUsuarios');      
+});

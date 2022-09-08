@@ -19,6 +19,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
+            if (Auth::user()->tipo_id=="1")
+                return redirect('/vista/usuarios');
+            elseif (Auth::user()->oficina=="Giro") 
+                return redirect('/vista/giro');            
+            else
+            return redirect('/vista/conciliacion'); 
+                       
             return redirect(RouteServiceProvider::HOME);
         }
 

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('/libs/tabler/css/tabler-flags.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/libs/tabler/css/tabler-payments.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/libs/tabler/css/tabler-vendors.min.css') }}">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+
     @yield('css') 
 
 </head>
@@ -44,14 +46,14 @@
                     </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                
-                        <a href="http://172.17.1.250/cuenta" class="dropdown-item">Gestionar cuenta</a>
+                        <a href="{{url('cuenta')}}" class="dropdown-item">Gestionar cuenta</a>
                         <div class="dropdown-divider"></div>
-                        <a href="http://172.17.1.250/logout" class="dropdown-item" onclick="event.preventDefault();
+                        <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 6a7.75 7.75 0 1 0 10 0"></path><line x1="12" y1="4" x2="12" y2="12"></line></svg>
                         Salir
                         </a>
-                        <form id="logout-form" action="http://172.17.1.250/logout" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                         <input type="hidden" name="_token" value="VfmLqnjcAxKQZm1j6vZUoRhlqE7FvXEICXipEoB8">                </form>
                     </div>
                 </div>
@@ -68,7 +70,44 @@
                 </div>
             </div>
         </header>
-
+        <div class="navbar-expand-md">
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <div class="navbar navbar-light">
+                <div class="container-xl">
+                    <ul class="navbar-nav">                                  
+                    <!-- SUBMODULOS -->                                    
+                        <!-- Tramite Documentario -->
+                        @if(Auth::user()->tipo_id=="1")
+                            <li class="nav-item ">
+                                <a class="nav-link {{$menu=='Usuarios' ? 'text-green':''}} "  href="{{url('vista/usuarios')}}">
+                                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="9" cy="7" r="4"></circle><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path><path d="M16 11h6m-3 -3v6"></path></svg>                                      
+                                    </span>
+                                    <span class="nav-link-title">Usuarios</span>
+                                </a>
+                            </li>
+                        @endif
+                       <!-- <li class="nav-item ">
+                            <a class="nav-link {{$menu=='Giros' ? 'text-green':''}} " href="{{url('vista/giro')}}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M4 13h3l3 3h4l3 -3h3"></path></svg>
+                                </span>
+                                <span class="nav-link-title">Giros</span>
+                            </a>
+                        </li>-->
+                        <li class="nav-item ">
+                            <a class="nav-link {{$menu=='Conciliaciones' ? 'text-green':''}}"href="{{url('vista/conciliacion')}}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"></path><line x1="13" y1="8" x2="15" y2="8"></line><line x1="13" y1="12" x2="15" y2="12"></line></svg>
+                                </span>
+                                <span class="nav-link-title">Conciliaciones</span>
+                            </a>
+                        </li>                                        
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
         <div class="page-wrapper position-relative">
             <div class="container-xl">
             <!-- Page title -->
@@ -129,6 +168,14 @@
     <script src="{{ asset('/libs/jquery-3.4.1.min.js') }}"></script>  
     <script src="{{ asset('/libs/tabler/js/tabler.min.js') }}"></script>
     <script src="{{ asset('/libs/tabler/js/demo.min.js') }}"></script>
+    <script src="{{ asset('/js/admin.js') }}"></script>
+    <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    </script>
     @yield('jss') 
 
 </body>

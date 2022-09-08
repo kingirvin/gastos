@@ -18,10 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/libs/css/tabler.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/libs/css/tabler-flags.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/libs/tabler-payments.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/libs/tabler-vendors.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/libs/tabler/css/tabler.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/libs/tabler/css/tabler-flags.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/libs/tabler/tabler-payments.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/libs/tabler/tabler-vendors.min.css') }}">
 </head>
 <body>
     <div id="app">

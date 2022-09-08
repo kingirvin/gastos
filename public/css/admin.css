@@ -1,0 +1,85 @@
+#cargando_pagina{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f8fafcc2;
+    display: none;
+}
+#mensaje_container{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    max-width: 500px;
+    z-index: 4;
+}
+.form-required{
+    color: #d63939;
+}
+table.dataTable {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+div.dataTables_wrapper div.dataTables_filter
+{
+    white-space: nowrap;
+}
+
+.table-responsive
+{
+    margin-bottom: 0;
+    position: relative;
+}
+
+div.dataTables_wrapper div.dataTables_paginate > .pagination
+{
+    margin-bottom: 0;
+}
+div.dataTables_wrapper div.dataTables_processing
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffffc9;
+    z-index: 1;
+    margin-left: 0;
+    margin-top: 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+
+.loading_aux
+{
+    padding: 1.5rem;
+    text-align: center;
+}
+
+div.dataTables_wrapper div.dataTables_paginate  .page-item.active .page-link
+{
+    z-index: 1;
+}
+.invalid-feedback
+{
+    display: block;
+}
+.mayuscula 
+{
+    text-transform: uppercase;
+}
+.span_logo{
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+    font-weight: 400;
+    display: flex;
+}
+@media (max-width: 767.98px) 
+{ 
+    .escritorio, div.dataTables_wrapper div.dataTables_length
+    {
+        display: none;
+    }
+}

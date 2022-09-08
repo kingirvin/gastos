@@ -1,33 +1,65 @@
 @extends('layouts.plantilla')
 
-@section('css') Gastos @endsection
+@section('css') Giros @endsection
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
+<link href="{{asset('/libs/select2/css/select2.min.css')}}" rel="stylesheet" />
 @section('jss') 
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>  
-<script src="{{asset('/js/gasto.js')}}"></script>  
+<script src="{{asset('/libs/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('/js/giro.js')}}"></script>  
 <script>
   var tabla;
   $(document).ready(function(){
-      tabla= $('#t_gastos').DataTable({
+      tabla= $('#t_giros').DataTable({
           processing: true,
           serverSider: true,
-          ajax:'{!!route("listaGastos")!!}',
+          ajax:'{!!route("listaGiro")!!}',
           columns:[
-              {data:'nro',name:'nro'},
-              {data:'siaf',name:'siaf'},
-              {data:'periodo',name:'periodo'},
-              {data:'cheque',name:'cheque'},
-              {data:'monto',name:'monto'},
-              {data:'estado',name:'estado'},
-              {data:'observacion',name:'observacion'},
+              {data:'nro'},
+              {data:'reg_siaf'},
+              {data:'periodo'},
+              {data:'cheque'},
+              {data:'monto'},
+              {data:'observacion'},
+              {data:'estado'},
           ]
-      })
+      });
+       var concilaciones={!!$conciliaciones!!}
+        $("#buscar").select2({
+          data: concilaciones
+        })
+      /*$(".buscar").select2({
+        ajax: {
+          url: '/json/conciliacion/listaidnombre',
+          dataType: 'json'
+          // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+        }
+      })*/
+      $('#buscar').select2({
+            // Activamos la opcion "Tags" del plugin
+            //tags: true,
+            tokenSeparators: [','],
+            ajax: {
+                dataType: 'json',
+                url: '/json/conciliacion/listaidnombre',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        term: params
+                    }
+                },
+                processResults: function (data, page) {
+                  return {
+                    results: data
+                  };
+                },
+            }
+        });
   })
 </script>
 
 @endsection
-@section('nombre') Gastos @endsection
+@section('nombre') Giros @endsection
 @section('content')
 <div class="col-12  py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -44,7 +76,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="t_gastos" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
+                                <table id="t_giros" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
                                     <thead>
                                         <tr>
                                         <th>Nro C/P</th>
@@ -52,8 +84,8 @@
                                         <th>Periodo</th>
                                         <th>Nro Cheque</th>
                                         <th>Monto</th>
-                                        <th>Estado</th>
                                         <th>Observaciòn</th>
+                                        <th>Estado</th>
                                         <th class="w-1"></th>
                                         </tr>
                                     </thead>
@@ -71,11 +103,16 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo gasto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">Nuevo giro</h5>
         </div>
         <div  id="form_gasto" class="modal-body">
           @csrf
+
+          <div class="form-group col-12">
+            <label class="form-label">Buscar<span class="form-required">*</span></label>
+            <select class="form-control" id="buscar"></select>
+
+          </div>
 
           <div class="form-group mb-3">
             <label class="form-label">Nro<span class="form-required">*</span></label>

@@ -70,8 +70,8 @@
                                 <select id="oficina" class="form-control @error('oficina') is-invalid @enderror" name="oficina" aria-label="Default select example">
                                     <option  selected   >Seleccione oficina</option>
                                     <option value="General">General</option>
-                                    <option value="Gastos">Gastos</option>
-                                    <option value="Cuentas">Cuentas</option>
+                                    <option value="Gastos">Giros</option>
+                                    <option value="Cuentas">Conciliaciones</option>
                                 </select>
                             </div>
                         </div>
