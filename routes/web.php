@@ -28,7 +28,11 @@ Route::prefix('vista')->group(function () {
     Route::get('devoluciones','AdminController@devolucion')->middleware('usuario');     
     Route::get('garantias','AdminController@garantia')->middleware('usuario');      
     Route::get('usuarios','AdminController@usuario') ->middleware('usuario');
-    Route::get('error_estado','AdminController@error_estado');      
+    Route::get('/reporte/{id}','AdminController@reporte') ->middleware('usuario');
+    Route::get('/reportepdf','AdminController@reportepdf') ->middleware('usuario');
+    Route::get('error_estado','AdminController@error_estado');
+    Route::get('reporte/pdf/{inicio}/{fin}','AdminController@pdf')->middleware('usuario'); 
+
 });
 Route::prefix('json')->group(function () {
     Route::get('devolucion/listar','Api\DevolucionController@listar')->middleware('usuario')->name('listaDevolucion');      
@@ -39,6 +43,10 @@ Route::prefix('json')->group(function () {
     Route::post('garantia/buscar','Api\GarantiaController@buscar')->middleware('usuario'); 
     Route::post('garantia/eliminar','Api\GarantiaController@eliminar')->middleware('usuario');
     Route::get('garantia/listaidnombre','Api\GarantiaController@listaIdNombre')->middleware('usuario'); 
+
+    Route::post('garantias/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
+    Route::post('devolucion/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
+
 
     Route::get('usuarios/listar','Api\UserController@listar')->name('listaUsuarios')->middleware('usuario');      
     Route::post('/usuarios/nuevo','Api\UserController@nuevo')->middleware('usuario');      

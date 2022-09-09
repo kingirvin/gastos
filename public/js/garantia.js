@@ -50,6 +50,7 @@ function limpiarform(){
     document.getElementById('recibo').value="";
     document.getElementById('voucher').value="";
 
+    document.getElementById('mensajeSiaf').innerHTML=""
     
     document.getElementById('id').value="0"
     document.getElementById('nro').value=""
@@ -59,11 +60,27 @@ function limpiarform(){
     document.getElementById('montoDevolucion').value=""
     document.getElementById('observacion').value=""
 
+    document.getElementById('nro').disabled=false;
+
 }
 //agrega el Devolucion a la garantia
 function agregar(id) {
+    document.getElementById('nro').disabled=true;
+
     limpiarform();
     activarForm();
+    // crea un nuevo objeto `Date`
+    var today = new Date();                    
+    // `getDate()` devuelve el día del mes (del 1 al 31)
+    var day = today.getDate();                      
+    // `getMonth()` devuelve el mes (de 0 a 11)
+    var month = today.getMonth() + 1;                      
+    // `getFullYear()` devuelve el año completo
+    var year = today.getFullYear();
+    var actual=year+'-'+month+'-'+day;
+    var actual_temp=new Date(actual);
+    var dias= 1000*60*60*24;   
+    
     var datastring = {
         id:id,
     };
@@ -76,7 +93,20 @@ function agregar(id) {
         datatype: 'json',
         data: datastring,
         success: function (res) {  
-        document.getElementById('nro').value=res['exp_siaf'];
+            var fecha=res['created_at']; 
+            var temp=fecha.substr(0,10); 
+            var fecha_temp=new Date(temp); 
+            var tiempo=(actual_temp-fecha_temp)/dias
+            if(tiempo > 365){
+                document.getElementById('nro').disabled=false;
+                document.getElementById('mensajeSiaf').innerHTML=" El periodo exedio el limite"
+            }
+            else{
+                document.getElementById('nro').disabled=true;
+                document.getElementById('mensajeSiaf').innerHTML=""
+            }
+
+            document.getElementById('nro').value=res['exp_siaf'];
         },
         error: function (error) {
             //alerta(response_helper(error),false);

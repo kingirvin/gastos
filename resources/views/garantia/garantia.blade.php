@@ -17,23 +17,7 @@
           ajax:'{!!route("listagarantia")!!}',
           "columns":[
             {"data":null,"orderable": false, "searchable": false,
-                  render: function ( data, type, full ) {                      
-                    /*// crea un nuevo objeto `Date`
-                    var today = new Date();                    
-                    // `getDate()` devuelve el día del mes (del 1 al 31)
-                    var day = today.getDate();                      
-                    // `getMonth()` devuelve el mes (de 0 a 11)
-                    var month = today.getMonth() + 1;                      
-                    // `getFullYear()` devuelve el año completo
-                    var year = today.getFullYear();
-                    var actual=year+'-'+month+'-'+day;
-                    var actual_temp=new Date(actual);
-                    var dias= 1000*60*60*24;
-                    var fecha=full.created_at; 
-                    var temp=fecha.substr(0,10); 
-                    var fecha_temp=new Date(temp); 
-
-                    return (actual_temp.getTime()-fecha_temp.getTime())/dias; */
+                  render: function ( data, type, full ) {                                         
                     var fecha=full.created_at; 
                     var temp=fecha.substr(0,10); 
                     return   temp;                
@@ -141,50 +125,51 @@
 @section('nombre') GARANTIAS @endsection
 @section('content')
 <div class="col-12  py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">                
-                    <div class="card">
-                      @if(Auth::user()->tipo_id=="1" || Auth::user()->oficina=="Garantias")
-                        <div class="card-header"><div class="col-6 col-sm-4 col-md-2 py-3">
-                            <div class="btn-list">
-                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-report" onclick="limpiarform()">
-                                   Nueva garantia
-                                </a>
-                            </div>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">                
+                <div class="card">
+                  @if(Auth::user()->tipo_id=="1" || Auth::user()->oficina=="Garantias")
+                    <div class="card-header">
+                      <div class="col-6 col-sm-4 col-md-2 py-3">
+                        <div class="btn-list" style="float: left; margin-right: 10px;">
+                              <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-report" onclick="limpiarform()">
+                                  Nueva garantia
+                              </a>
                         </div>
-                      @endif
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="t_gastos" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
-                                    <thead>
-                                        <tr>
-                                        <th>Fecha</th>
-                                        <th>Exp. SIAF</th>
-                                        <th>O/C- O/S</th>
-                                        <th>Proveedor</th>
-                                        <th>Voucher</th>
-                                        <th>Exp. SIAF</th>
-                                        <th>Concepto de registro</th>
-                                        <th>Monto</th>
-                                        <th>Mes</th>
-                                        <th>Recibo</th>
-                                        <th>Estado</th>
-                                        <th class="w-1"> Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>  
-                        </div>                 
-                    </div>
+                      </div>                     
+                    </div>                     
+                  @endif
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="t_gastos" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
+                            <thead>
+                                <tr>
+                                <th>Fecha</th>
+                                <th>Exp. SIAF</th>
+                                <th>O/C- O/S</th>
+                                <th>Proveedor</th>
+                                <th>Voucher</th>
+                                <th>Exp. SIAF</th>
+                                <th>Concepto de registro</th>
+                                <th>Monto</th>
+                                <th>Mes</th>
+                                <th>Recibo</th>
+                                <th>Estado</th>
+                                <th class="w-1"> Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>                 
             </div>
         </div>
+      </div>
     </div>
-    
+</div>
   <div class="modal modal-blur fade" id="modal-devolucion" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -195,29 +180,35 @@
           @csrf
           <input type="hidden" id="garantia_id">
           <input type="hidden" id="id">
-          <div class="form-group mb-3">
-            <label class="form-label">Nro<span class="form-required">*</span></label>
-            <input type="text" class="form-control mayuscula" id="nro" name="example-text-input" placeholder=""disabled>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Reg. SIAF<span class="form-required">*</span></label>
-            <input type="text" class="form-control mayuscula" id="siafDevolucion" name="example-text-input" placeholder="" >
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Periodo<span class="form-required">*</span></label>
-            <input type="text" class="form-control mayuscula" id="periodo" name="example-text-input" placeholder="">
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Nro Cheque<span class="form-required">*</span></label>
-            <input type="text" class="form-control mayuscula" id="cheque" name="example-text-input" placeholder="">
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Monto<span class="form-required">*</span></label>
-            <input type="text" class="form-control mayuscula" id="montoDevolucion" name="example-text-input" placeholder="">
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Observacion</label>
-            <textarea  class="form-control mayuscula"name="observacion" id="observacion" cols="30" rows="4"></textarea>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group mb-3">
+                <label class="form-label">Nro<span id="mensajeSiaf" class="form-required"></span><span class="form-required">*</span></label>
+                <input type="text" class="form-control mayuscula" id="nro" name="example-text-input" placeholder="" disabled>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Reg. SIAF<span class="form-required">*</span></label>
+                <input type="text" class="form-control mayuscula" id="siafDevolucion" name="example-text-input" placeholder="" >
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Periodo<span class="form-required">*</span></label>
+                <input type="text" class="form-control mayuscula" id="periodo" name="example-text-input" placeholder="">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group mb-3">
+                <label class="form-label">Nro Cheque<span class="form-required">*</span></label>
+                <input type="text" class="form-control mayuscula" id="cheque" name="example-text-input" placeholder="">
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Monto<span class="form-required">*</span></label>
+                <input type="text" class="form-control mayuscula" id="montoDevolucion" name="example-text-input" placeholder="">
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Observacion</label>
+                <textarea  class="form-control mayuscula"name="observacion" id="observacion" cols="30" rows="4"></textarea>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

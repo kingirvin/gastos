@@ -70,4 +70,13 @@ class GarantiaController extends Controller
         $garantia= Garantia::select('id','oc_os as text')->get();
         return response()->json([$garantia]);
     }
+    public function reporteBuscar(Request $request){        
+        $garantias= Garantia::whereYear('created_at', substr($request->inicio,0,4))
+            ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+            ->whereMonth('created_at','<=', substr($request->fin,5,2))
+            ->whereDay('created_at','>' , substr($request->inicio,8,2))
+            ->whereDay('created_at','<=', substr($request->fin,8,2))
+            ->get();
+            return response()->json(['data'=>$garantias], 200);
+    }
 }

@@ -44,7 +44,7 @@ class LoginController extends Controller
                 return '/vista/garantias';
         }  
         else
-            return 'error_estado';            
+            return 'vista/error_estado';            
     }
     public function __construct()
     {
