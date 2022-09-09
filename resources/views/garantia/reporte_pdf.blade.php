@@ -21,15 +21,15 @@
 
     </head>
     <body >
-        <div style="margin: 10px;border: 1px solid #cdc9c9; padding: 20px;width: 100%;float: left;">           
+        <div style="padding: 20px;width: 100%;float: left;">           
             <div  style="float: left;">           
                 <img src="http://172.18.1.245:8080/img/fondo.jpeg" style="width: 100px;"> 
             </div>           
-            <div style="float: left;">           
-                <img src="http://172.18.1.245:8080/img/fondo.jpeg" style="width: 100px;"> 
+            <div style="float: left; padding-left: 20px;">           
+                <h1>oficina sdkfskd dlfksdklfnkldfnsdklfnskdln sdkfnsd fdsfsd fsdjfkbsdf</h1> 
             </div>           
-            <div  style="float: left;">           
-                <img src="http://172.18.1.245:8080/img/fondo.jpeg" style="width: 100px;margin-right: 20px;"> 
+            <div  style="margin-right: 20px;float: right;">           
+                <img src="http://172.18.1.245:8080/img/fondo.jpeg" style="width: 100px;"> 
             </div> 
         </div>
         <div style="padding-top: 20px;margin: 10px;float: left;width: 100%;">
