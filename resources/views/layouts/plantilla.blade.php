@@ -45,17 +45,17 @@
                         </div>
                     </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                
-                        <a href="{{url('cuenta')}}" class="dropdown-item">Gestionar cuenta</a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <a href="{{url('tienda/perfil')}}" class="dropdown-item">Mi perfil</a>
                         <div class="dropdown-divider"></div>
-                        <a href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 6a7.75 7.75 0 1 0 10 0"></path><line x1="12" y1="4" x2="12" y2="12"></line></svg>
-                        Salir
+                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 6a7.75 7.75 0 1 0 10 0" /><line x1="12" y1="4" x2="12" y2="12" /></svg>
+                            Cerrar sesión
                         </a>
-                        <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
-                        <input type="hidden" name="_token" value="VfmLqnjcAxKQZm1j6vZUoRhlqE7FvXEICXipEoB8">                </form>
-                    </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>  
                 </div>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-menu">
@@ -96,11 +96,11 @@
                             </a>
                         </li>-->
                         <li class="nav-item ">
-                            <a class="nav-link {{$menu=='Conciliaciones' ? 'text-green':''}}"href="{{url('vista/conciliacion')}}">
+                            <a class="nav-link {{$menu=='Garantia' ? 'text-green':''}}"href="{{url('vista/garantias')}}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"></path><line x1="13" y1="8" x2="15" y2="8"></line><line x1="13" y1="12" x2="15" y2="12"></line></svg>
                                 </span>
-                                <span class="nav-link-title">Conciliaciones</span>
+                                <span class="nav-link-title">Garantias</span>
                             </a>
                         </li>                                        
                     </ul>
@@ -149,7 +149,7 @@
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                    Copyright © 2021
+                    Copyright © 2022
                     <a href="https://www.gob.pe/regionmadrededios" class="link-secondary">Gobierno Regional de Madre de Dios</a>.                  
                     </li>
                 </ul>

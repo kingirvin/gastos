@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConciliacionsTable extends Migration
+class CreateDevolucionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class CreateConciliacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conciliaciones', function (Blueprint $table) {
+        Schema::create('devoluciones', function (Blueprint $table) {
             $table->id();
-            $table->string('exp_siaf')->nullable();
-            $table->string('oc_os')->nullable();
-            $table->string('proveedor')->nullable();
-            $table->string('voucher')->nullable();
-            $table->string('siaf')->nullable();
-            $table->string('registro')->nullable();
+            $table->string('nro')->nullable();
+            $table->string('reg_siaf')->nullable();
+            $table->string('periodo')->nullable();
+            $table->string('cheque')->nullable();
             $table->string('monto')->nullable();
-            $table->string('mes')->nullable();
-            $table->string('recibo')->nullable();
+            $table->string('observacion')->nullable();
             $table->tinyInteger('estado')->default('1');
             $table->unsignedBigInteger('user_id');  
-            $table->timestamps();            
+            $table->unsignedBigInteger('garantia_id');  
+            $table->timestamps();
+            
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('garantia_id')->references('id')->on('garantias');
         });
     }
 
@@ -38,6 +38,6 @@ class CreateConciliacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conciliacions');
+        Schema::dropIfExists('giros');
     }
 }

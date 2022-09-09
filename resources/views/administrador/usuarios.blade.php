@@ -138,8 +138,8 @@
                 <label class="form-label">Oficina</label>
                 <select id="oficina" class="form-control">
                   <option value="">Selecione oficina</option>
-                  <option value="Conciliaciones">Conciliaciones</option>
-                  <option value="Giros">Giros</option>
+                  <option value="Garantias">Garantias</option>
+                  <option value="Devoluciones">Devoluciones</option>
                 </select>
               </div>
               <div class="form-group mb-3">

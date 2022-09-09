@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Conciliacion extends Model
+class Garantia extends Model
 {
     //
     protected $fillable = [
@@ -21,13 +21,12 @@ class Conciliacion extends Model
         'user_id',
     ]; 
     
-    protected $table='conciliaciones';  
     public function usuario()
     {
         return $this->belongsTo('App\User', 'user_id');
     }
-    public function giros()
+    public function devoluciones()
     {
-        return $this->hasMany('App\Giro', 'conciliacion_id');
+        return $this->hasMany('App\Devolucion', 'garantia_id');
     }
 }

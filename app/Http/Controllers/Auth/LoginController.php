@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -26,13 +27,25 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+    public function redirectTo() {
+        $tipo = Auth::user()->tipo_id; 
+        if(Auth::user()->estado==1){
+            if($tipo == 1){//publico
+                return '/vista/usuarios'; 
+            }        
+            else//institucional
+                return '/vista/garantias';
+        }  
+        else
+            return 'error_estado';            
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

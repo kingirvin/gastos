@@ -21,10 +21,10 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->tipo_id=="1")
                 return redirect('/vista/usuarios');
-            elseif (Auth::user()->oficina=="Giro") 
-                return redirect('/vista/giro');            
-            else
-            return redirect('/vista/conciliacion'); 
+            else //if (Auth::user()->oficina=="Devoluciones") 
+               // return redirect('/vista/devolucion');            
+           // else
+            return redirect('/vista/garantias'); 
                        
             return redirect(RouteServiceProvider::HOME);
         }

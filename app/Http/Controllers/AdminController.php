@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Giro;
-use App\Conciliacion;
+use App\Devolucion;
+use App\Garantia;
 use App\User;
 use Auth; 
 class AdminController extends Controller
@@ -20,16 +20,19 @@ class AdminController extends Controller
         $menu='Usuarios';
         return view('administrador.usuarios', compact('menu'));
     }       
-    public function giro()
+    public function devolucion()
     {
-        $giro=Giro::get();
-        $menu='Giros';
-        $conciliaciones=Conciliacion::select('id','oc_os as text')->get();
-        return view('giro.giro',compact('menu','conciliaciones'));
+        $devolucion=Devolucion::get();
+        $menu='Devolucion';
+        $garantias=garantia::select('id','oc_os as text')->get();
+        return view('devolucion.devolucion',compact('menu','garantias'));
     }       
-    public function conciliacion()
+    public function garantia()
     {
-        $menu='Conciliaciones';
-        return view('conciliacion.conciliacion',compact('menu'));
+        $menu='Garantia';
+        return view('garantia.garantia',compact('menu'));
+    }
+    public function error_estado(){
+        return view('administrador.error_estado');
     }
 }
