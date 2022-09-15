@@ -40,8 +40,10 @@ class LoginController extends Controller
             if($tipo == 1){//publico
                 return '/vista/usuarios'; 
             }        
-            else//institucional
-                return '/vista/garantias';
+            elseif(Auth::user()->oficina=="Garantias"||Auth::user()->oficina=="Devoluciones")//Garantias
+                return '/vista/garantias';            
+            else//comprobantes
+                return '/vista/comprobantes';
         }  
         else
             return 'vista/error_estado';            

@@ -30,8 +30,9 @@ Route::prefix('vista')->group(function () {
     Route::get('usuarios','AdminController@usuario') ->middleware('usuario');
     Route::get('/reporte/{id}','AdminController@reporte') ->middleware('usuario');
     Route::get('/reportepdf','AdminController@reportepdf') ->middleware('usuario');
+    Route::get('/comprobantes','AdminController@comprobantes') ->middleware('usuario');
     Route::get('error_estado','AdminController@error_estado');
-    Route::get('reporte/pdf/{inicio}/{fin}','AdminController@pdf')->middleware('usuario'); 
+    Route::get('reporte/pdf/{inicio}/{fin}/{id}','AdminController@pdf')->middleware('usuario'); 
 
 });
 Route::prefix('json')->group(function () {
@@ -45,12 +46,21 @@ Route::prefix('json')->group(function () {
     Route::get('garantia/listaidnombre','Api\GarantiaController@listaIdNombre')->middleware('usuario'); 
 
     Route::post('garantias/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
-    Route::post('devolucion/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
+    Route::post('devolucion/reporteBuscar','Api\DevolucionController@reporteBuscar')->middleware('usuario'); 
 
+    Route::get('comprobante/listar','Api\ComprobanteController@listar')->middleware('usuario')->name('listaComprobantes');      
+    Route::post('comprobante/nuevo','Api\ComprobanteController@nuevo')->middleware('usuario');      
+    Route::post('comprobante/buscar','Api\ComprobanteController@buscar')->middleware('usuario');      
+    Route::post('comprobante/eliminar','Api\ComprobanteController@eliminar')->middleware('usuario');      
+
+
+    Route::get('proveedor/listar/{busqueda}','Api\ProveedorController@listar')->middleware('usuario');      
 
     Route::get('usuarios/listar','Api\UserController@listar')->name('listaUsuarios')->middleware('usuario');      
     Route::post('/usuarios/nuevo','Api\UserController@nuevo')->middleware('usuario');      
     Route::post('/usuarios/estado','Api\UserController@estado')->middleware('usuario');      
+    Route::post('/usuarios/buscar','Api\UserController@buscar')->middleware('usuario');      
+    Route::post('/usuarios/password','Api\UserController@password')->middleware('usuario');      
 
     //Route::post('usuarios/nuevo','Api\DevolucionController@listar')->name('listaUsuarios');      
 });

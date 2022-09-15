@@ -2,28 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Devolucion;
 use App\Garantia;
+use App\Proveedor;
 use App\User;
 use Auth;
 use DataTables;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class DevolucionController extends Controller
+class ProveedorController extends Controller
 {
-    //
     //
     public function __construct()
     {
         $this->middleware('auth');        
     }    
-    public function listar() 
+    public function listar($buscar) 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Devolucion::get();
-        return DataTables::of($lista)->ToJson();        
+
+         if($buscar=="")
+            $lista=Proveedor::select('id','nombre as nombre','ruc')->get();   
+        else
+            $lista=Proveedor::select('id','nombre as nombre','ruc')->where('nombre',"like",'%'.$buscar.'%')->get();   
+        return response()->json(['data'=>$lista]);   
     }
     public function nuevo(Request $request) 
     { 

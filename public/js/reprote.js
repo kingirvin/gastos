@@ -72,5 +72,7 @@ function restaurar() {
     tabla.ajax.reload(null, false);               
 }
 function verPdf(id) {
-    window.location.href = "/vista/reporte/pdf/"+document.getElementById('datepicker-inicio').value+"/"+document.getElementById('datepicker-fin').value;
+    
+    //url:  reporte=="Reporte garantia" ? "/json/garantias/reporteBuscar": "/json/devolucion/reporteDevolucion",
+    window.location.href = reporte=="Reporte garantia" ?"/vista/reporte/pdf/"+document.getElementById('datepicker-inicio').value+"/"+document.getElementById('datepicker-fin').value+"/1" :"/vista/reporte/pdf/"+document.getElementById('datepicker-inicio').value+"/"+document.getElementById('datepicker-fin').value+"/2";
 }

@@ -34,8 +34,8 @@
             {"data":null,"orderable": false, "searchable": false,
                   render: function ( data, type, full ) {                        
                       var res ='<div class="btn-list flex-nowrap">'+
-                        '<button class="btn btn-white btn-icon" onclick="modificar('+full.id+');" title="MODIFICAR"  data-bs-toggle="modal" data-bs-target="#modal-report"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
-                        '<button class="btn btn-danger btn-icon" onclick="eliminar('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="4" y1="7" x2="20" y2="7"></line><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg></button></div>';
+                        '<button class="btn btn-white btn-icon" onclick="modificar('+full.id+');" title="MODIFICAR"  data-bs-toggle="modal" data-bs-target="#modal-usuario"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
+                        '<button class="btn btn-white btn-icon" onclick="password('+full.id+');" title="ELIMINAR"  data-bs-toggle="modal" data-bs-target="#modal-password"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="5" y="11" width="14" height="10" rx="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M8 11v-4a4 4 0 0 1 8 0v4"></path></svg></button></div>';
                       return res;                             
               }  
             }
@@ -76,7 +76,7 @@
                     <div class="card">
                         <div class="card-header"><div class="col-6 col-sm-4 col-md-2 py-3">
                             <div class="btn-list">
-                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-usuario">
+                                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-usuario" onclick="limpiarForm();">
                                    Nuevo usuario
                                 </a>
                             </div>
@@ -117,6 +117,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group mb-3">
+                <input type="hidden" value="0" id="usuario_id">
                 <label class="form-label">Nombre<span class="form-required">*</span></label>
                 <input type="text" class="form-control mayuscula" id="nombre" name="example-text-input" placeholder="">
               </div>
@@ -140,6 +141,7 @@
                   <option value="">Selecione oficina</option>
                   <option value="Garantias">Garantias</option>
                   <option value="Devoluciones">Devoluciones</option>
+                  <option value="Comprobantes">Comprobantes</option>
                 </select>
               </div>
               <div class="form-group mb-3">
@@ -154,7 +156,7 @@
                 <label class="form-label">Correo electronico<span class="form-required">*</span></label>
                 <input type="text" class="form-control" id="email" placeholder="">
               </div>
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" id="divPassword">
                   <label class="form-label">Contraseña <span class="form-required">*</span></label>
                   <input id="password" type="password" class="form-control validar_minimo:8">
               </div>             
@@ -166,6 +168,37 @@
             Cancelar
           </a>
           <a href="#" class="btn btn-primary ms-auto" onclick="guardarUsuario()">
+            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+            Guardar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal-blur fade" id="modal-password" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cambiar contraseña</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div  id="form_usuario" class="modal-body">
+          @csrf
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group mb-3">
+                  <label class="form-label">Nueva contraseña <span class="form-required">*</span></label>
+                  <input id="password_" type="password" class="form-control validar_minimo:8">
+              </div>             
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </a>
+          <a href="#" class="btn btn-primary ms-auto" onclick="guardarContraseña()">
             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
             Guardar

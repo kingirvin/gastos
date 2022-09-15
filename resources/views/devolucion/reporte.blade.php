@@ -53,7 +53,7 @@
           processing: true,
           serverSider: true,
           ajax: {
-            url:  reporte=="Reporte garantia" ? "/json/garantias/reporteBuscar": "/json/devolucion/reporteDevolucion",
+            url:  reporte=="Reporte garantia" ? "/json/garantias/reporteBuscar": "/json/devolucion/reporteBuscar",
             type: 'POST',
             data: datastring,     
             },
@@ -65,23 +65,13 @@
                         return   temp;                
                     }                                        
                 },
-                {"data":'exp_siaf'},
-                {"data":'oc_os'},
-                {"data":'proveedor'},
-                {"data":'voucher'},
-                {"data":'siaf'},
-                {"data":'registro'},
-                {"data":'monto'},
-                {"data":'mes'},
-                {"data":'recibo'},
-                {"data":null,"orderable": false, "searchable": false,
-                    render: function ( data, type, full ) {                         
-                        if(full.estado=="1")
-                        return "<p style='color: green;'>Ingreso</p>";
-                        else
-                        return "<p style='color: red;'>Devuelto</p>";
-                    }                                        
-                },             
+                
+              {"data":'nro'},
+              {"data":'reg_siaf'},
+              {"data":'periodo'},
+              {"data":'cheque'},
+              {"data":'monto'},
+              {"data":'observacion'},
             ],
             language: {
               processing:     "Traitement en cours...",
@@ -171,17 +161,13 @@
                         <table id="t_gastos" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
                             <thead>
                                 <tr>
-                                <th>Fecha</th>
-                                <th>Exp. SIAF</th>
-                                <th>O/C- O/S</th>
-                                <th>Proveedor</th>
-                                <th>Voucher</th>
-                                <th>Exp. SIAF</th>
-                                <th>Concepto de registro</th>
-                                <th>Monto</th>
-                                <th>Mes</th>
-                                <th>Recibo</th>
-                                <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Nro C/P</th>
+                                    <th>Reg. SIAF</th>
+                                    <th>Periodo</th>
+                                    <th>Nro Cheque</th>
+                                    <th>Monto</th>
+                                    <th>Observaciòn</th>
                                 </tr>
                             </thead>
                             <tbody>

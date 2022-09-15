@@ -27,20 +27,32 @@ use DataTables;class UserController extends Controller
     public function nuevo(Request $request) 
     { 
         //return $request;
-
         $user=Auth::user();
-        $gasto=new User;
-        $gasto->name=$request->name;
-        $gasto->email=$request->email;
-        $gasto->password= Hash::make($request->password);
-        $gasto->apaterno=$request->apaterno;
-        $gasto->amaterno=$request->amaterno;
-        $gasto->telefono=$request->telefono;
-        $gasto->oficina=$request->oficina;
-        $gasto->tipo_id=$request->tipo_id;
-        $gasto->estado="1";
-        $gasto->user_id=$user->id;
-        $gasto->save();        
+        if($request->id!=0){
+            $gasto=User::find($request->id);
+            $gasto->name=$request->name;
+            $gasto->email=$request->email;
+            $gasto->apaterno=$request->apaterno;
+            $gasto->amaterno=$request->amaterno;
+            $gasto->telefono=$request->telefono;
+            $gasto->oficina=$request->oficina;
+            $gasto->tipo_id=$request->tipo_id;
+            $gasto->user_id=$user->id;
+        }
+        else{
+           // $user=Auth::user();
+            $gasto=new User;
+            $gasto->name=$request->name;
+            $gasto->email=$request->email;
+            $gasto->password= Hash::make($request->password);
+            $gasto->apaterno=$request->apaterno;
+            $gasto->amaterno=$request->amaterno;
+            $gasto->telefono=$request->telefono;
+            $gasto->oficina=$request->oficina;
+            $gasto->tipo_id=$request->tipo_id;
+            $gasto->estado="1";
+            $gasto->user_id=$user->id;
+        }
         if($gasto->save())
             return response()->json(['message'=>'Se guardo correctamente'], 200);
         else
@@ -58,5 +70,17 @@ use DataTables;class UserController extends Controller
         else
             return response()->json(['message'=>'Error, no se guardaron los datos'], 500);
 
+    }
+    public function password(Request $request){
+        $user=User::find($request->id);             
+            $user->password= Hash::make($request->password);       
+        if($user->save())
+            return response()->json(['message'=>'Se guardo correctamente'], 200);
+        else
+            return response()->json(['message'=>'Error, no se guardaron los datos'], 500);
+
+    }
+    public function buscar(Request $request){
+       return $user=User::find($request->id);
     }
 }

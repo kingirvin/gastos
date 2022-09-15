@@ -77,6 +77,7 @@ class GarantiaController extends Controller
             ->whereDay('created_at','>' , substr($request->inicio,8,2))
             ->whereDay('created_at','<=', substr($request->fin,8,2))
             ->get();
-            return response()->json(['data'=>$garantias], 200);
+        $total=count($garantias);
+            return response()->json(['data'=>$garantias, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
     }
 }
