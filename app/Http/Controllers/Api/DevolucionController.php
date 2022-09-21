@@ -22,7 +22,7 @@ class DevolucionController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Devolucion::get();
+        $lista=Devolucion::orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 
@@ -74,7 +74,7 @@ class DevolucionController extends Controller
             ->whereMonth('created_at','<=', substr($request->fin,5,2))
             ->whereDay('created_at','>' , substr($request->inicio,8,2))
             ->whereDay('created_at','<=', substr($request->fin,8,2))
-            ->get();
+            ->orderBy('id', 'DESC')->get();
         $total=count($devoluciones);
             return response()->json(['data'=>$devoluciones, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
     }

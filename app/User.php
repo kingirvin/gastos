@@ -44,4 +44,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Conciliacion', 'user_id');
     } 
+    public function ro_comprobantes()
+    {
+        return $this->hasMany('App\Ro_comprobante', 'user_id');
+    } 
+    public function rdr_comprobantes()
+    {
+        return $this->hasMany('App\Rdr_comprobante', 'user_id');
+    } 
+    public function gar_comprobantes()
+    {
+        return $this->hasMany('App\Gar_comprobante', 'user_id');
+    } 
 }

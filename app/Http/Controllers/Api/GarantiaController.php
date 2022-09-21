@@ -22,7 +22,7 @@ class GarantiaController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Garantia::with('devoluciones')->get();
+        $lista=Garantia::with('devoluciones')->orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 
@@ -67,7 +67,7 @@ class GarantiaController extends Controller
         return $garantia=Garantia::find($request->id);
     }
     public function listaIdNombre(Request $request){
-        $garantia= Garantia::select('id','oc_os as text')->get();
+        $garantia= Garantia::select('id','oc_os as text')->orderBy('id', 'DESC')->get();
         return response()->json([$garantia]);
     }
     public function reporteBuscar(Request $request){        
@@ -76,7 +76,7 @@ class GarantiaController extends Controller
             ->whereMonth('created_at','<=', substr($request->fin,5,2))
             ->whereDay('created_at','>' , substr($request->inicio,8,2))
             ->whereDay('created_at','<=', substr($request->fin,8,2))
-            ->get();
+            ->orderBy('id', 'DESC')->get();
         $total=count($garantias);
             return response()->json(['data'=>$garantias, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
     }

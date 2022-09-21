@@ -30,10 +30,13 @@ Route::prefix('vista')->group(function () {
     Route::get('usuarios','AdminController@usuario') ->middleware('usuario');
     Route::get('/reporte/{id}','AdminController@reporte') ->middleware('usuario');
     Route::get('/reportepdf','AdminController@reportepdf') ->middleware('usuario');
-    Route::get('/comprobantes','AdminController@comprobantes') ->middleware('usuario');
+    Route::get('ro_comprobantes','AdminController@roComprobantes') ->middleware('usuario');
+    Route::get('rdr_comprobantes','AdminController@rdrComprobantes') ->middleware('usuario');
+    Route::get('gar_comprobantes','AdminController@garComprobantes') ->middleware('usuario');
     Route::get('error_estado','AdminController@error_estado');
     Route::get('reporte/pdf/{inicio}/{fin}/{id}','AdminController@pdf')->middleware('usuario'); 
-
+    Route::get('reporte/comprobante_pdf/{inicio}/{fin}/{id}','Api\ComprobanteController@pdf')->middleware('usuario'); 
+    Route::get('comprobante/reporte','AdminController@comprobantes')->middleware('usuario'); 
 });
 Route::prefix('json')->group(function () {
     Route::get('devolucion/listar','Api\DevolucionController@listar')->middleware('usuario')->name('listaDevolucion');      
@@ -47,11 +50,26 @@ Route::prefix('json')->group(function () {
 
     Route::post('garantias/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
     Route::post('devolucion/reporteBuscar','Api\DevolucionController@reporteBuscar')->middleware('usuario'); 
+//comprobantes RO
+    Route::get('roComprobante/listar','Api\RoComprobanteController@listar')->middleware('usuario')->name('listaRoComprobantes');      
+    Route::post('roComprobante/nuevo','Api\RoComprobanteController@nuevo')->middleware('usuario');      
+    Route::post('roComprobante/buscar','Api\RoComprobanteController@buscar')->middleware('usuario');      
+    Route::post('roComprobante/eliminar','Api\RoComprobanteController@eliminar')->middleware('usuario'); 
+    //reporte de todos los comprobantes
+    
+    Route::post('comprobante/reporteBuscar','Api\ComprobanteController@reporteBuscar')->middleware('usuario'); 
 
-    Route::get('comprobante/listar','Api\ComprobanteController@listar')->middleware('usuario')->name('listaComprobantes');      
-    Route::post('comprobante/nuevo','Api\ComprobanteController@nuevo')->middleware('usuario');      
-    Route::post('comprobante/buscar','Api\ComprobanteController@buscar')->middleware('usuario');      
-    Route::post('comprobante/eliminar','Api\ComprobanteController@eliminar')->middleware('usuario');      
+    //comprobantes RO    
+    Route::get('garComprobante/listar','Api\GarComprobanteController@listar')->middleware('usuario')->name('listaGarComprobantes');      
+    Route::post('garComprobante/nuevo','Api\GarComprobanteController@nuevo')->middleware('usuario');      
+    Route::post('garComprobante/buscar','Api\GarComprobanteController@buscar')->middleware('usuario');      
+    Route::post('garComprobante/eliminar','Api\GarComprobanteController@eliminar')->middleware('usuario'); 
+    
+    //comprobantes rdr
+    Route::get('rdrComprobante/listar','Api\RdrComprobanteController@listar')->middleware('usuario')->name('listaRdrComprobantes');      
+    Route::post('rdrComprobante/nuevo','Api\RdrComprobanteController@nuevo')->middleware('usuario');      
+    Route::post('rdrComprobante/buscar','Api\RdrComprobanteController@buscar')->middleware('usuario');      
+    Route::post('rdrComprobante/eliminar','Api\RdrComprobanteController@eliminar')->middleware('usuario');      
 
 
     Route::get('proveedor/listar/{busqueda}','Api\ProveedorController@listar')->middleware('usuario');      

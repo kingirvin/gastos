@@ -52,6 +52,9 @@
         //serverSide: true,
           processing: true,
           serverSider: true,
+            order: [
+            [0, "desc"]
+            ],
           ajax: {
             url:  reporte=="Reporte garantia" ? "/json/garantias/reporteBuscar": "/json/devolucion/reporteBuscar",
             type: 'POST',
@@ -110,7 +113,7 @@
                         <div class="row">   
                             <div class="col-12">
                                 <div class="btn-list" style="float: left; margin-right: 10px;">
-                                    <a href="javascript:void(0)" class="btn" onclick="verPdf(1);">
+                                    <a href="javascript:void(0)"  target="_blank" class="btn" onclick="verPdf(1);">
                                         Ver pdf
                                     </a>
                                 </div>

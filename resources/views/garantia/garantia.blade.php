@@ -14,6 +14,9 @@
       tabla= $('#t_gastos').DataTable({
           processing: true,
           serverSider: true,
+            order: [
+            [0, "desc"]
+            ],
           ajax:'{!!route("listagarantia")!!}',
           "columns":[
             {"data":null,"orderable": false, "searchable": false,

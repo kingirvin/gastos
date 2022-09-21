@@ -13,29 +13,72 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <!-- Styles -->
-        <link href="{{public_path('libs/tabler/css/tabler.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{public_path('libs/tabler/css/tabler-flags.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{public_path('libs/tabler/css/tabler-payments.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{public_path('libs/tabler/css/tabler-vendors.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{public_path('css/admin.css')}}" rel="stylesheet" type="text/css">
 
     </head>
     <body >
-        <div style="padding-top: 20px;margin: 10px;width: 100%;">
-            <table style="width: 100%;padding-top: 20px; padding: 0.5rem 0.5rem;width: 100%;margin: 0 auto;clear: both;border-collapse: separate;border-spacing: 0;">                
-                <thead>
-                    <tr>
-                        <td colspan="11"><img src="{{$logo}}" style="width: 100%;"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="11">
-                            <h5>Usuario: {{Auth::user()->name." ".Auth::user()->apaterno." ".Auth::user()->amaterno}}</br>
-                            {{$reporte}}</br>
-                            Generado el {{$fecha}}
-                            </h5> 
-                        </td>                       
-                    </tr>
-                </thead>
+        <style>
+            
+            /** Definir las reglas del encabezado **/
+            header {
+                position: fixed;
+                top: 0cm;
+                left: 0cm;
+                right: 0cm;
+                height: 1.5cm;
+                margin:0cm;
+                padding: 0cm;
+                /** Estilos extra personales **/
+               
+                color: black;
+                text-align: center;
+                
+            }
+            .img{
+                height: 1.5cm;
+                margin:0px;               
+            }
+            .img-left{
+               
+            }
+            .lado{
+                width:20%;
+                float:left;
+            }
+            .centro{
+                width:60%;
+                float:left;
+            }
+            h5{
+                margin-top:5px;
+            }
+            .texto{
+                margin-top: 2.5cm;
+                width:100%
+            }
+
+        </style>
+        <header>
+            <div class="lado">
+                <img  class="img img-left" src="{{$logo1}}">
+            </div>
+            <div class="centro">
+                <p style="margin: 0; font-size: 10px;">“AÑO DEL FORTALECIMIENTO DE LA SOBERANÍA NACIONAL”</p>
+                <p style="margin: 0; font-size: 16px;">Gobierno Regional de Madre de Dios</p>
+                <p  style="margin: 0;font-size: 12px;">Oficina Regional de Administración</p>
+                <p  style="margin: 0;font-size: 12px;">Oficina de Tesorería</p>
+            </div>
+            <div class="lado">
+                <img  class="img img-left" src="{{$logo2}}">
+            </div>
+        </header>
+        <div style="padding-top: 0px;margin: 10px;width: 100%;">
+            <div class="texto">            
+                <h5>Usuario: {{Auth::user()->name." ".Auth::user()->apaterno." ".Auth::user()->amaterno}}</br>
+                    {{$reporte}}</br>
+                    Generado el {{$fecha}}
+                </h5> 
+            </div>
+            <table style="width: 100%;width: 100%;clear: both;border-collapse: separate;border-spacing: 0;">                               
                 <thead style="background: #857f7f;">
                     <tr>                        
                         <th style="border-bottom-width: 1px;padding: 0.5rem 0.5rem;border-style: solid;border-width: 0px 0px 1px 0px;font-size: 12px;">Fecha</th>
@@ -49,7 +92,7 @@
                         <th style="border-bottom-width: 1px;padding: 0.5rem 0.5rem;border-style: solid;border-width: 0px 0px 1px 0px;font-size: 12px;">Mes</th>
                         <th style="border-bottom-width: 1px;padding: 0.5rem 0.5rem;border-style: solid;border-width: 0px 0px 1px 0px;font-size: 12px;">Recibo</th>
                         <th style="border-bottom-width: 1px;padding: 0.5rem 0.5rem;border-style: solid;border-width: 0px 0px 1px 0px;font-size: 12px;">Estado</th>
-                        </tr>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach($garantias as $garantia)

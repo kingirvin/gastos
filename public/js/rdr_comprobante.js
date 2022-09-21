@@ -37,7 +37,7 @@ function guardar() {
             proveedor_nombre:document.getElementById('proveedor_nombre').value,
             ruc:document.getElementById('ruc').value,
         };
-        var route = "/json/comprobante/nuevo";
+        var route = "/json/rdrComprobante/nuevo";
         $.ajax({
             url: route,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -61,7 +61,7 @@ function modificar(id) {
 	var datastring = {
 		id:id,
 	};
-	var route = "/json/comprobante/buscar";
+	var route = "/json/rdrComprobante/buscar";
 	$.ajax({
 		url: route,
 		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -92,7 +92,7 @@ function eliminar(id) {
 	var datastring = {
 		id:id,
 	};
-	var route = "/json/comprobante/eliminar";
+	var route = "/json/rdrComprobante/eliminar";
 	$.ajax({
 		url: route,
 		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

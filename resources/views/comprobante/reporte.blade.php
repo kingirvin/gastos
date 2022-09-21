@@ -7,7 +7,7 @@
 @section('jss') 
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
 <script src="{{asset('/libs/litepicker/dist/litepicker.js')}}"></script> 
-<script src="{{asset('/js/reprote.js')}}"></script>  
+<script src="{{asset('/js/reprote_Comprobante.js')}}"></script>  
 <script>
     // @formatter:off
     document.addEventListener("DOMContentLoaded", function () {
@@ -45,10 +45,11 @@
   $(document).ready(function(){
     
     var datastring = {
+        comprobante:document.getElementById('comprobante').value,
         inicio:document.getElementById('datepicker-inicio').value,
         fin:document.getElementById('datepicker-fin').value,
         };
-      tabla= $('#t_gastos').DataTable({
+      tabla= $('#t_comprobante').DataTable({
         //serverSide: true,
           processing: true,
           serverSider: true,
@@ -56,47 +57,54 @@
             [0, "desc"]
             ],
           ajax: {
-            url:  reporte=="Reporte garantia" ? "/json/garantias/reporteBuscar": "/json/devolucion/reporteDevolucion",
+            url:  "/json/comprobante/reporteBuscar",
             type: 'POST',
             data: datastring,     
             },
-            "columns":[
+            "columns":[                
+                {"data":'id'},
+                {"data":'siaf'},
                 {"data":null,"orderable": false, "searchable": false,
                     render: function ( data, type, full ) {                      
                         var fecha=full.created_at; 
                         var temp=fecha.substr(0,10); 
                         return   temp;                
                     }                                        
-                },
-                {"data":'exp_siaf'},
-                {"data":'oc_os'},
-                {"data":'proveedor'},
-                {"data":'voucher'},
-                {"data":'siaf'},
-                {"data":'registro'},
-                {"data":'monto'},
-                {"data":'mes'},
-                {"data":'recibo'},
+                },                
+                {"data":'documento_tipo'},
                 {"data":null,"orderable": false, "searchable": false,
-                    render: function ( data, type, full ) {                         
-                        if(full.estado=="1")
-                        return "<p style='color: green;'>Ingreso</p>";
-                        else
-                        return "<p style='color: red;'>Devuelto</p>";
+                    render: function ( data, type, full ) {                      
+                        var proveedor=full.proveedor.nombre; 
+                        return   proveedor;                
                     }                                        
-                },             
+                },
+                {"data":'importe'},
+                {data:null,"orderable": false, "searchable": false,
+                    render: function ( data, type, full ) {                      
+                        if(full.estado=="1")
+                            return "<p style='color: #329f67;'>Completo</p>"; 
+                        else
+                            return "<p style='color: #c70101;'>Incompleto</p>"; 
+                        
+                    }                                        
+                },
+                {data:null,"orderable": false, "searchable": false,
+                    render: function ( data, type, full ) {                      
+                        return full.usuario.name; 
+                    }                                        
+                },
             ],
             language: {
               processing:     "Traitement en cours...",
               search:         "Buscar",
               lengthMenu:     "Mostrar _MENU_ registros",
               info:           "Mostrar de _START_ a _END_ de _TOTAL_ registros",
-              infoEmpty:      "sds de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+              infoEmpty:      "0 registros",
               infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
               infoPostFix:    "",
               loadingRecords: "Chargement en cours...",
               zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-              emptyTable:     "Aucune donnée disponible dans le tableau",
+              emptyTable:     "Nose encontraron registros",
               paginate: {
                   first:      "Primero",
                   previous:   "Antes",
@@ -112,7 +120,7 @@
   })
 </script>
 @endsection
-@section('nombre') GARANTIAS @endsection
+@section('nombre') COMPROBANTES @endsection
 @section('content')
 <div class="col-12  py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -130,7 +138,18 @@
                             </div> 
                             <div class="col-12"> 
                                 <div class="row">
-                                    <div class="col-4">           
+                                    <div class="col-2">           
+                                        <div class="mb-3">
+                                            <label class="form-label">Comprobate</label>
+                                            <select type="text" class="form-select" placeholder="Select a date" id="comprobante" value="">
+                                                <option value="1">RO</option>
+                                                <option value="2">RDR</option>
+                                                <option value="3">Garantia</option>
+                                            </select>
+                                        </div>
+
+                                    </div> 
+                                    <div class="col-3">           
                                         <div class="mb-3">
                                             <label class="form-label">Inicio</label>                                
                                             <div class="input-icon">
@@ -142,7 +161,7 @@
                                         </div>  
 
                                     </div>              
-                                    <div class="col-4">            
+                                    <div class="col-3">            
                                         <div class="mb-3">
                                             <label class="form-label">Fin</label>                                
                                             <div class="input-icon">
@@ -171,20 +190,17 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="t_gastos" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
+                        <table id="t_comprobante" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
                             <thead>
                                 <tr>
-                                <th>Fecha</th>
-                                <th>Exp. SIAF</th>
-                                <th>O/C- O/S</th>
-                                <th>Proveedor</th>
-                                <th>Voucher</th>
-                                <th>Exp. SIAF</th>
-                                <th>Concepto de registro</th>
-                                <th>Monto</th>
-                                <th>Mes</th>
-                                <th>Recibo</th>
-                                <th>Estado</th>
+                                    <th>Nro C/P</th>
+                                    <th>SIAF</th>
+                                    <th>Fecha</th>
+                                    <th>T/Doc</th>
+                                    <th>Proveedor</th>
+                                    <th>Importe</th>
+                                    <th>Regsitro</th>
+                                    <th>Usuario</th>
                                 </tr>
                             </thead>
                             <tbody>

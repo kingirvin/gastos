@@ -8,7 +8,7 @@
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
 <script src="{{asset('/libs/tom-select/dist/js/tom-select.base.min.js')}}"></script>
 
-<script src="{{asset('/js/comprobante.js')}}"></script>  
+<script src="{{asset('/js/rdr_comprobante.js')}}"></script>  
 <script>
   var tabla;
   var item_select;
@@ -65,27 +65,13 @@
 			}
 		},
 	});
-    /*
-    new TomSelect("#select-tags",{
-        create: true,        
-        render:{
-            option: function(data, escape) {
-                return '<div>' + escape(data.text) + '</div>';
-            },
-            item: function(data, escape) {
-                document.getElementById('proveedor_nombre').value=data.text;
-                document.getElementById("proveedor_nombre").disabled=true;	
-                document.getElementById('proveedor_id').value=data.value;
-                document.getElementById('divRuc').style.display="none";
-                return '<div>' + escape(data.text) + '</div>';
-            },
-            onDelete : eventHandler('onDelete')
-        }
-    });*/
     tabla= $('#t_comprobantes').DataTable({
           processing: true,
           serverSider: true,
-          ajax:'{!!route("listaComprobantes")!!}',
+            order: [
+            [0, "desc"]
+            ],
+          ajax:'{!!route("listaRdrComprobantes")!!}',
         columns:[
             {data:'id'},
             {data:'siaf'},
@@ -104,6 +90,28 @@
             },
             {data:'importe'},
             {data:null,"orderable": false, "searchable": false,
+                render: function ( data, type, full ) {                      
+                    return full.usuario.name; 
+                }                                        
+            },
+            {data:null,"orderable": false, "searchable": false,
+                render: function ( data, type, full ) {                      
+                    if(full.estado=="1")
+                        return "<p style='color: #329f67;'>Completo</p>"; 
+                    else
+                        return "<p style='color: #c70101;'>Incompleto</p>"; 
+                    
+                }                                        
+            },
+            {data:null,"orderable": false, "searchable": false,
+                render: function ( data, type, full ) {  
+                    if(full.eliminar=="1")          
+                        return "<p style='color: #c70101;'>Pendiente</p>"; 
+                    else
+                        return " "; 
+                }                                        
+            },
+            {data:null,"orderable": false, "searchable": false,
                 render: function ( data, type, full ) {                       
                 res ='<button class="btn btn-white btn-icon" onclick="modificar('+full.id+');" title="MODIFICAR GARANTIA"  data-bs-toggle="modal" data-bs-target="#modal-comprobante"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
                     '<button class="btn btn-danger btn-icon" onclick="eliminar('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="4" y1="7" x2="20" y2="7"></line><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg></button></div>';
@@ -111,6 +119,28 @@
                 }                                        
             } 
         ],
+            language: {
+              processing:     "Traitement en cours...",
+              search:         "Buscar",
+              lengthMenu:     "Mostrar _MENU_ registros",
+              info:           "Mostrar de _START_ a _END_ de _TOTAL_ registros",
+              infoEmpty:      "0 registros",
+              infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+              infoPostFix:    "",
+              loadingRecords: "Chargement en cours...",
+              zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+              emptyTable:     "Nose encontraron registros",
+              paginate: {
+                  first:      "Primero",
+                  previous:   "Antes",
+                  next:       "Siguiente",
+                  last:       "Ultima"
+              },
+              aria: {
+                  sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                  sortDescending: ": activer pour trier la colonne par ordre décroissant"
+              }
+          }
       });
   })
 </script>
@@ -146,6 +176,9 @@
                                             <th>T/ Doc</th>
                                             <th>Proveedor</th>
                                             <th>importe</th>
+                                            <th>Usuario</th>
+                                            <th>Registro</th>
+                                            <th>Eliminar</th>
                                             <th class="w-1"> Opciones</th>
                                         </tr>
                                     </thead>
@@ -176,15 +209,15 @@
                     <input type="text" class="form-control mayuscula" id="siaf" name="example-text-input" placeholder="">
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Tipo documento<span class="form-required">*</span></label>
+                    <label class="form-label">Tipo documento</label>
                     <input type="text" class="form-control mayuscula" id="documento_tipo" name="example-text-input" placeholder="">
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Nro documento</span></label>
+                    <label class="form-label">Nro documento</label>
                     <input type="text" class="form-control mayuscula" id="nro_doc" name="example-text-input" placeholder="">
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Importe<span class="form-required">*</span></label>
+                    <label class="form-label">Importe</label>
                     <input type="text" class="form-control mayuscula" id="importe" name="example-text-input" placeholder="">
                 </div>
             </div>
@@ -204,7 +237,7 @@
                 </div> 
                 <div class="form-group mb-3">
                     <input type="hidden" name="" id="proveedor_id" value="0">
-                    <label class="form-label">Proveedor<span class="form-required">*</span></label>
+                    <label class="form-label">Proveedor</span></label>
                     <input type="text" class="form-control mayuscula" id="proveedor_nombre" name="example-text-input" disabled>
                 </div>          
                 <div class="form-group mb-3" id="divRuc" style="display:none">

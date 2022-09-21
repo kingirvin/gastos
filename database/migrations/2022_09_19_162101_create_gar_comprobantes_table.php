@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComprobantesTable extends Migration
+class CreateGarComprobantesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateComprobantesTable extends Migration
      */
     public function up()
     {
-        Schema::create('comprobantes', function (Blueprint $table) {
-            $table->id();// nro c/p
+        Schema::create('gar_comprobantes', function (Blueprint $table) {
+            $table->id();
             $table->string('siaf')->nullable();
             $table->string('documento_tipo')->nullable();
             $table->string('nro_doc')->nullable();
             $table->string('importe')->nullable();
             $table->tinyInteger('estado')->default('1');
+            $table->tinyInteger('eliminar')->default('0');
             $table->unsignedBigInteger('user_id');  
             $table->unsignedBigInteger('proveedor_id');  
+            //id de los tipos de datos;
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
@@ -36,6 +38,6 @@ class CreateComprobantesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comprobantes');
+        Schema::dropIfExists('gar_comprobantes');
     }
 }

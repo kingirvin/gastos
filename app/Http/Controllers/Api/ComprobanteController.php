@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Devolucion;
 use App\Garantia;
-use App\Comprobante;
+use App\Ro_comprobante;
+use App\Rdr_comprobante;
+use App\Gar_comprobante;
 use App\Proveedor;
 use App\User;
 use Auth;
@@ -75,14 +77,106 @@ class ComprobanteController extends Controller
         return Comprobante::destroy($request->id);
     }
     public function reporteBuscar(Request $request){
-              
-        $devoluciones= Devolucion::whereYear('created_at', substr($request->inicio,0,4))
-            ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
-            ->whereMonth('created_at','<=', substr($request->fin,5,2))
-            ->whereDay('created_at','>' , substr($request->inicio,8,2))
-            ->whereDay('created_at','<=', substr($request->fin,8,2))
-            ->get();
-        $total=count($devoluciones);
-            return response()->json(['data'=>$devoluciones, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        if($request->comprobante==1){
+            $comprobantes= Ro_comprobante::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('created_at','<=', substr($request->fin,5,2))
+                ->whereDay('created_at','>' , substr($request->inicio,8,2))
+                ->whereDay('created_at','<=', substr($request->fin,8,2))
+                ->get();
+            $total=count($comprobantes);
+                return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        }
+        elseif ($request->comprobante==2) {
+            $comprobantes= Rdr_comprobante::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('created_at','<=', substr($request->fin,5,2))
+                ->whereDay('created_at','>' , substr($request->inicio,8,2))
+                ->whereDay('created_at','<=', substr($request->fin,8,2))
+                ->get();
+            $total=count($comprobantes);
+                return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        } 
+        else {
+            $comprobantes= Gar_comprobante::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('created_at','<=', substr($request->fin,5,2))
+                ->whereDay('created_at','>' , substr($request->inicio,8,2))
+                ->whereDay('created_at','<=', substr($request->fin,8,2))
+                ->get();
+            $total=count($comprobantes);
+                return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        }
     }
+    public function pdf($inicio,$fin,$id){   
+        $respuesta=null;
+        $reporte="Reporte de devoluciones de ".$inicio. " al ". $fin;
+        $fecha=date('Y-m-d');
+        $path='img/logo1.jpg';
+        $type=pathinfo($path,PATHINFO_EXTENSION);
+        $data=file_get_contents($path);
+        $logo1='data:image/'.$type.';base64,'.base64_encode($data);
+        $path='img/logo2.jpg';
+        $type=pathinfo($path,PATHINFO_EXTENSION);
+        $data=file_get_contents($path);
+        $logo2='data:image/'.$type.';base64,'.base64_encode($data);
+        if ($id==1) {
+            $respuesta= Ro_comprobante::whereYear('created_at', substr($inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                ->whereMonth('created_at','<=', substr($fin,5,2))
+                ->whereDay('created_at','>' , substr($inicio,8,2))
+                ->whereDay('created_at','<=', substr($fin,8,2))
+                ->get();              
+            $reporte="Reporte de comprobantes RO de ".$inicio. " al ". $fin;
+           // return view('comprobante.reporte_pdf',compact('garantias','logo1','logo2','reporte','fecha','fecha'));
+
+            $pdf=app('dompdf.wrapper');
+            $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+            $pdf->set_paper('letter', 'landscape');
+            //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+        // $pdf->loadHTML($pdf);
+            return $pdf->stream();  
+
+        }
+        elseif($id==2){            
+             $respuesta= Rdr_comprobante::whereYear('created_at', substr($inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                ->whereMonth('created_at','<=', substr($fin,5,2))
+                ->whereDay('created_at','>' , substr($inicio,8,2))
+                ->whereDay('created_at','<=', substr($fin,8,2))
+                ->get(); 
+                $reporte="Reporte de comprobantes RDR de ".$inicio. " al ". $fin;
+        
+                
+                //in View<img src=" $data['logo'] " width="150" height="150"/>
+                //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+ 
+                $pdf=app('dompdf.wrapper');
+                $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                $pdf->set_paper('letter', 'landscape');
+                //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+               // $pdf->loadHTML($pdf);
+                return $pdf->stream();                              
+            }
+            else {    
+                $respuesta= Gar_comprobante::whereYear('created_at', substr($inicio,0,4))
+                   ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                   ->whereMonth('created_at','<=', substr($fin,5,2))
+                   ->whereDay('created_at','>' , substr($inicio,8,2))
+                   ->whereDay('created_at','<=', substr($fin,8,2))
+                   ->get(); 
+                   $reporte="Reporte de comprogantes de garantias de ".$inicio. " al ". $fin;
+           
+                   
+                   //in View<img src=" $data['logo'] " width="150" height="150"/>
+                   //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+    
+                   $pdf=app('dompdf.wrapper');
+                   $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+                  // $pdf->loadHTML($pdf);
+                   return $pdf->stream();  
+            }
+    } 
 }

@@ -1,6 +1,6 @@
 
 function guardarUsuario() {
-    if( validar("#form_usuari")){
+    if( validar("#form_usuario")){
         $( "#cargando_pagina" ).show();
         var datastring = {
             id:document.getElementById('usuario_id').value,
@@ -73,7 +73,7 @@ function modificar(id) {
         datatype: 'json',
         data: datastring,
         success: function (res) {    
-            document.getElementById('divPassword').style.display="none";
+            document.getElementById('divPassword').style.display="block";
 
             document.getElementById('usuario_id').value=res["id"];
             document.getElementById('nombre').value=res["name"];

@@ -12,10 +12,15 @@
       tabla= $('#t_usuario').DataTable({
           processing: true,
           serverSider: true,
+            order: [
+            [0, "desc"]
+            ],
           ajax:'{!!route("listaUsuarios")!!}', 
           columns:[
+              {data: "id", "visible": false},
               {data:'name'},
               {data:'apaterno'},
+              {data:'email'},
               {data:'oficina'},
               {"data":null,"orderable": false, "searchable": false,
                   render: function ( data, type, full ) {                         
@@ -87,8 +92,10 @@
                                 <table id="t_usuario" class="table card-table table-vcenter text-nowrap datatable"style="padding-top: 20px;">
                                     <thead>
                                         <tr>
+                                        <th></th>
                                         <th>Nombre</th>
                                         <th>Apellidos</th>
+                                        <th>Correo</th>
                                         <th>Oficina</th>
                                         <th>Estado</th>
                                         <th class="w-1">Opciones</th>
@@ -112,12 +119,12 @@
           <h5 class="modal-title">Nuevo Usuario</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+                <input type="hidden" value="0" id="usuario_id">
         <div  id="form_usuario" class="modal-body">
           @csrf
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group mb-3">
-                <input type="hidden" value="0" id="usuario_id">
                 <label class="form-label">Nombre<span class="form-required">*</span></label>
                 <input type="text" class="form-control mayuscula" id="nombre" name="example-text-input" placeholder="">
               </div>
@@ -138,10 +145,14 @@
               <div class="form-group mb-3">
                 <label class="form-label">Oficina</label>
                 <select id="oficina" class="form-control">
-                  <option value="">Selecione oficina</option>
-                  <option value="Garantias">Garantias</option>
-                  <option value="Devoluciones">Devoluciones</option>
-                  <option value="Comprobantes">Comprobantes</option>
+                  @if(Auth::user()->oficina=="Comprobantes")
+                    <option value="Comprobantes">Comprobantes</option>
+                  @else
+                    <option value="">Selecione oficina</option>
+                    <option value="Garantias">Garantiass</option>
+                    <option value="Devoluciones">Devoluciones</option>
+                    <option value="Comprobantes">Comprobantes</option>
+                  @endif
                 </select>
               </div>
               <div class="form-group mb-3">
@@ -157,7 +168,7 @@
                 <input type="text" class="form-control" id="email" placeholder="">
               </div>
               <div class="form-group mb-3" id="divPassword">
-                  <label class="form-label">Contraseña <span class="form-required">*</span></label>
+                  <label class="form-label">Contraseña </label>
                   <input id="password" type="password" class="form-control validar_minimo:8">
               </div>             
             </div>
@@ -183,7 +194,7 @@
           <h5 class="modal-title">Cambiar contraseña</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div  id="form_usuario" class="modal-body">
+        <div  id="form_usuario_" class="modal-body">
           @csrf
           <div class="row">
             <div class="col-lg-6">
