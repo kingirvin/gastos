@@ -7,6 +7,8 @@ use App\Garantia;
 use App\Ro_comprobante;
 use App\Rdr_comprobante;
 use App\Gar_comprobante;
+use App\Aprovechamiento;
+use App\Donacion;
 use App\Proveedor;
 use App\User;
 use Auth;
@@ -97,6 +99,26 @@ class ComprobanteController extends Controller
             $total=count($comprobantes);
                 return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
         } 
+        elseif ($request->comprobante==4) {
+            $comprobantes= Aprovechamiento::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('created_at','<=', substr($request->fin,5,2))
+                ->whereDay('created_at','>' , substr($request->inicio,8,2))
+                ->whereDay('created_at','<=', substr($request->fin,8,2))
+                ->get();
+            $total=count($comprobantes);
+                return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        } 
+        elseif ($request->comprobante==5) {
+            $comprobantes= Donacion::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
+                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('created_at','<=', substr($request->fin,5,2))
+                ->whereDay('created_at','>' , substr($request->inicio,8,2))
+                ->whereDay('created_at','<=', substr($request->fin,8,2))
+                ->get();
+            $total=count($comprobantes);
+                return response()->json(['data'=>$comprobantes, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+        } 
         else {
             $comprobantes= Gar_comprobante::with('proveedor','usuario')->whereYear('created_at', substr($request->inicio,0,4))
                 ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
@@ -121,17 +143,18 @@ class ComprobanteController extends Controller
         $data=file_get_contents($path);
         $logo2='data:image/'.$type.';base64,'.base64_encode($data);
         if ($id==1) {
-            $respuesta= Ro_comprobante::whereYear('created_at', substr($inicio,0,4))
+            $comprobantes = Ro_comprobante::whereYear('created_at', substr($inicio,0,4))
                 ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
                 ->whereMonth('created_at','<=', substr($fin,5,2))
                 ->whereDay('created_at','>' , substr($inicio,8,2))
                 ->whereDay('created_at','<=', substr($fin,8,2))
                 ->get();              
-            $reporte="Reporte de comprobantes RO de ".$inicio. " al ". $fin;
-           // return view('comprobante.reporte_pdf',compact('garantias','logo1','logo2','reporte','fecha','fecha'));
+            $reporte="Reporte de Recursos Ordinarios de ".$inicio. " al ". $fin;
+            $nro="0-201-018749";
+           return view('comprobante.reporte_pdf',compact('comprobantes','logo1','logo2','reporte','fecha','fecha',"nro"));
 
             $pdf=app('dompdf.wrapper');
-            $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+            $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);
             $pdf->set_paper('letter', 'landscape');
             //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
         // $pdf->loadHTML($pdf);
@@ -145,20 +168,63 @@ class ComprobanteController extends Controller
                 ->whereDay('created_at','>' , substr($inicio,8,2))
                 ->whereDay('created_at','<=', substr($fin,8,2))
                 ->get(); 
-                $reporte="Reporte de comprobantes RDR de ".$inicio. " al ". $fin;
+                $reporte="Reporte de  Recursos Directamente Recaudados de ".$inicio. " al ". $fin;
+                $nro="0-201-013003";
         
                 
                 //in View<img src=" $data['logo'] " width="150" height="150"/>
                 //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
  
                 $pdf=app('dompdf.wrapper');
-                $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);
                 $pdf->set_paper('letter', 'landscape');
                 //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
                // $pdf->loadHTML($pdf);
                 return $pdf->stream();                              
             }
-            else {    
+            elseif ($id==4) {
+                $respuesta= Aprovechamiento::whereYear('created_at', substr($inicio,0,4))
+                   ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                   ->whereMonth('created_at','<=', substr($fin,5,2))
+                   ->whereDay('created_at','>' , substr($inicio,8,2))
+                   ->whereDay('created_at','<=', substr($fin,8,2))
+                   ->get(); 
+                   $reporte="Reporte de Aprovechamiento de ".$inicio. " al ". $fin;
+                   $nro="0-201-028361";
+           
+                   
+                   //in View<img src=" $data['logo'] " width="150" height="150"/>
+                   //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+    
+                   $pdf=app('dompdf.wrapper');
+                   $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);
+                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+                  // $pdf->loadHTML($pdf);
+                   return $pdf->stream(); 
+            } 
+            elseif ($id==5) {
+                $respuesta= Donacion::whereYear('created_at', substr($inicio,0,4))
+                   ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                   ->whereMonth('created_at','<=', substr($fin,5,2))
+                   ->whereDay('created_at','>' , substr($inicio,8,2))
+                   ->whereDay('created_at','<=', substr($fin,8,2))
+                   ->get(); 
+                   $reporte="Reporte de Donaciones y Transferencias de ".$inicio. " al ". $fin;
+                   $nro="0-201-020980";
+           
+                   
+                   //in View<img src=" $data['logo'] " width="150" height="150"/>
+                   //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+    
+                   $pdf=app('dompdf.wrapper');
+                   $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);
+                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+                  // $pdf->loadHTML($pdf);
+                   return $pdf->stream(); 
+            } 
+        else{    
                 $respuesta= Gar_comprobante::whereYear('created_at', substr($inicio,0,4))
                    ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
                    ->whereMonth('created_at','<=', substr($fin,5,2))
@@ -166,13 +232,12 @@ class ComprobanteController extends Controller
                    ->whereDay('created_at','<=', substr($fin,8,2))
                    ->get(); 
                    $reporte="Reporte de comprogantes de garantias de ".$inicio. " al ". $fin;
-           
-                   
+                   $nro="0-201-025400";                              
                    //in View<img src=" $data['logo'] " width="150" height="150"/>
                    //return view('comprobante.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
     
                    $pdf=app('dompdf.wrapper');
-                   $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                   $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);
                    $pdf->set_paper('letter', 'landscape');
                    //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
                   // $pdf->loadHTML($pdf);

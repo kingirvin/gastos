@@ -10,7 +10,8 @@ use App\Giro;
 use App\Conciliacion;
 use App\User;
 use Auth;
-use DataTables;class UserController extends Controller
+use DataTables;
+class UserController extends Controller
 {
     //
     //

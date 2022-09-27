@@ -96,6 +96,14 @@
                                 <span class="nav-link-title">Garantias</span>
                             </a>
                         </li> 
+                        <li class="nav-item ">
+                            <a class="nav-link {{$menu=='forestal' ? 'text-green':''}}"href="{{url('vista/garantiasForestal')}}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"></path><line x1="13" y1="8" x2="15" y2="8"></line><line x1="13" y1="12" x2="15" y2="12"></line></svg>
+                                </span>
+                                <span class="nav-link-title">Garantias forestal</span>
+                            </a>
+                        </li> 
                         @endif
                         @if(Auth::user()->tipo_id=="1")
                             @if(Auth::user()->oficina=="Garantias" || Auth::user()->oficina=="Devoluciones" )
@@ -117,31 +125,52 @@
                                 </li>
                             @else                           
                                 <li class="nav-item ">
-                                    <a class="nav-link {{$menu=='ro' ? 'text-green':''}} "  href="{{url('vista/ro_comprobantes')}}">
+                                    <a class="nav-link {{$menu=='ro' ? 'text-green':''}}" style="padding-bottom: 0;text-align: center;"  href="{{url('vista/ro_comprobantes')}}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
                                         </span>
-                                        <span class="nav-link-title">Cuenta RO</span>
+                                        <span class="nav-link-title"> Recursos Ordinarios</span>
                                     </a>
+                                    <div class="{{$menu=='ro' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-018749</div>
                                 </li>                           
                                 <li class="nav-item ">
-                                    <a class="nav-link {{$menu=='rdr' ? 'text-green':''}} "  href="{{url('vista/rdr_comprobantes')}}">
+                                    <a class="nav-link {{$menu=='rdr' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;" href="{{url('vista/rdr_comprobantes')}}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
                                         </span>
-                                        <span class="nav-link-title">Cuenta RDR</span>
+                                        <span class="nav-link-title">Recursos Directamente Recaudados</span>
                                     </a>
+                                    <div class="{{$menu=='rdr' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-013003</div>
                                 </li>                           
                                 <li class="nav-item ">
-                                    <a class="nav-link {{$menu=='gar' ? 'text-green':''}} "  href="{{url('vista/gar_comprobantes')}}">
+                                    <a class="nav-link {{$menu=='gar' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/gar_comprobantes')}}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
                                         </span>
-                                        <span class="nav-link-title">Cuenta Garantia</span>
+                                        <span class="nav-link-title">Garantias</span>
                                     </a>
+                                    <div class="{{$menu=='gar' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-025400</div>
+                                </li>                            
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='aprovechamiento' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/aprovechamiento')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Aprovechamiento</span>
+                                    </a>
+                                    <div class="{{$menu=='aprovechamiento' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-028361</div>
+                                </li>                            
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='donaciones' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/donaciones')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Donaciones y Transferencias</span>
+                                    </a>
+                                    <div class="{{$menu=='donaciones' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-020980</div>
                                 </li>  
                                 <li class="nav-item ">
-                                    <a class="nav-link {{$menu=='Reporte comprobante' ? 'text-green':''}} "  href="{{url('vista/comprobante/reporte')}}">
+                                    <a class="nav-link {{$menu=='Reporte comprobante' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/comprobante/reporte')}}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
                                         </span>
@@ -167,39 +196,60 @@
                                     <span class="nav-link-title">Reporte devoluciones</span>
                                 </a>
                             </li>
-                            @else                            
-                            <li class="nav-item ">
-                                <a class="nav-link {{$menu=='ro' ? 'text-green':''}} "  href="{{url('vista/ro_comprobantes')}}">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
-                                    </span>
-                                    <span class="nav-link-title">Cuenta RO</span>
-                                </a>
-                            </li>                           
-                            <li class="nav-item ">
-                                <a class="nav-link {{$menu=='rdr' ? 'text-green':''}} "  href="{{url('vista/rdr_comprobantes')}}">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
-                                    </span>
-                                    <span class="nav-link-title">Cuenta RDR</span>
-                                </a>
-                            </li>                           
-                            <li class="nav-item ">
-                                <a class="nav-link {{$menu=='gar' ? 'text-green':''}} "  href="{{url('vista/gar_comprobantes')}}">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
-                                    </span>
-                                    <span class="nav-link-title">Cuenta Garantia</span>
-                                </a>
-                            </li>
+                            @else                           
                                 <li class="nav-item ">
-                                    <a class="nav-link {{$menu=='Reporte comprobante' ? 'text-green':''}} "  href="{{url('vista/comprobante/reporte')}}">
+                                    <a class="nav-link {{$menu=='ro' ? 'text-green':''}}" style="padding-bottom: 0;text-align: center;"  href="{{url('vista/ro_comprobantes')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title"> Recursos Ordinarios</span>
+                                    </a>
+                                    <div class="{{$menu=='ro' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-018749</div>
+                                </li>                           
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='rdr' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;" href="{{url('vista/rdr_comprobantes')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Recursos Directamente Recaudados</span>
+                                    </a>
+                                    <div class="{{$menu=='rdr' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-013003</div>
+                                </li>                           
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='gar' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/gar_comprobantes')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Garantias</span>
+                                    </a>
+                                    <div class="{{$menu=='gar' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-025400</div>
+                                </li>                            
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='aprovechamiento' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/gar_comprobantes')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Aprovechamiento</span>
+                                    </a>
+                                    <div class="{{$menu=='aprovechamiento' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-028361</div>
+                                </li>                            
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='donaciones' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/gar_comprobantes')}}">
+                                        <span class="nav-link-icon d-md-none d-lg-inline-block"> 
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
+                                        </span>
+                                        <span class="nav-link-title">Donaciones y Transferencias</span>
+                                    </a>
+                                    <div class="{{$menu=='donaciones' ? 'text-green':''}}" style="text-align: center;font-size: 12px;">0-201-020980</div>
+                                </li>  
+                                <li class="nav-item ">
+                                    <a class="nav-link {{$menu=='Reporte comprobante' ? 'text-green':''}} "  style="padding-bottom: 0;text-align: center;"    href="{{url('vista/comprobante/reporte')}}">
                                         <span class="nav-link-icon d-md-none d-lg-inline-block"> 
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-desktop-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><rect x="3" y="4" width="18" height="12" rx="1"></rect><path d="M7 20h10"></path><path d="M9 16v4"></path><path d="M15 16v4"></path><path d="M9 12v-4"></path><path d="M12 12v-1"></path><path d="M15 12v-2"></path><path d="M12 12v-1"></path></svg>
                                         </span>
                                         <span class="nav-link-title">Reportes</span>
                                     </a>
-                                </li>     
+                                </li>    
                         @endif                                       
                     </ul>
                 </div>

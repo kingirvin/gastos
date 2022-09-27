@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Garantia_forestal;
+use App\Devolucion_forestal;
+
 use App\Devolucion;
 use App\Garantia;
 use App\Proveedor;
@@ -37,6 +40,11 @@ class AdminController extends Controller
     {
         $menu='Garantia';
         return view('garantia.garantia',compact('menu'));
+    }     
+    public function garantiasForestal()
+    {
+        $menu='forestal';
+        return view('garantia.garantia_forestal',compact('menu'));
     }
     public function error_estado(){
         return view('administrador.error_estado');
@@ -54,7 +62,7 @@ class AdminController extends Controller
         }
     }
     
-    public function pdf($inicio,$fin,$id){   
+    public function pdf($inicio,$fin,$id,$garantia){   
         $respuesta=null;
         $reporte="Reporte de devoluciones de ".$inicio. " al ". $fin;
         $fecha=date('Y-m-d');
@@ -67,43 +75,86 @@ class AdminController extends Controller
         $data=file_get_contents($path);
         $logo2='data:image/'.$type.';base64,'.base64_encode($data);
         if ($id==1) {
-            $garantias= Garantia::whereYear('created_at', substr($inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
-                ->whereMonth('created_at','<=', substr($fin,5,2))
-                ->whereDay('created_at','>' , substr($inicio,8,2))
-                ->whereDay('created_at','<=', substr($fin,8,2))
-                ->get();              
-            $reporte="Reporte de garantias de ".$inicio. " al ". $fin;
-           // return view('garantia.reporte_pdf',compact('garantias','logo1','logo2','reporte','fecha','fecha'));
-
-            $pdf=app('dompdf.wrapper');
-            $pdf->loadView('garantia.reporte_pdf',['garantias'=>$garantias,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
-            $pdf->set_paper('letter', 'landscape');
-            //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
-        // $pdf->loadHTML($pdf);
-            return $pdf->stream();  
-
-        }
-        else{            
-             $respuesta= Devolucion::whereYear('created_at', substr($inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
-                ->whereMonth('created_at','<=', substr($fin,5,2))
-                ->whereDay('created_at','>' , substr($inicio,8,2))
-                ->whereDay('created_at','<=', substr($fin,8,2))
-                ->get(); 
-                $reporte="Reporte de devoluciones de ".$inicio. " al ". $fin;
-        
-                
-                //in View<img src=" $data['logo'] " width="150" height="150"/>
-                //return view('devolucion.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
- 
+            if ($garantia==1) {
+                $garantias= Garantia::whereYear('created_at', substr($inicio,0,4))
+                    ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                    ->whereMonth('created_at','<=', substr($fin,5,2))
+                    ->whereDay('created_at','>' , substr($inicio,8,2))
+                    ->whereDay('created_at','<=', substr($fin,8,2))
+                    ->get();              
+                $reporte="Reporte de garantias de ".$inicio. " al ". $fin;
+               // return view('garantia.reporte_pdf',compact('garantias','logo1','logo2','reporte','fecha','fecha'));
+    
                 $pdf=app('dompdf.wrapper');
-                $pdf->loadView('devolucion.reporte_pdf',['devoluciones'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                $pdf->loadView('garantia.reporte_pdf',['garantias'=>$garantias,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
                 $pdf->set_paper('letter', 'landscape');
                 //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
-               // $pdf->loadHTML($pdf);
-                return $pdf->stream();                              
+            // $pdf->loadHTML($pdf);
+                return $pdf->stream(); 
             }
+            else{
+                $garantias= Garantia_forestal::whereYear('created_at', substr($inicio,0,4))
+                    ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                    ->whereMonth('created_at','<=', substr($fin,5,2))
+                    ->whereDay('created_at','>' , substr($inicio,8,2))
+                    ->whereDay('created_at','<=', substr($fin,8,2))
+                    ->get();              
+                $reporte="Reporte de garantias GRFFS de ".$inicio. " al ". $fin;
+               // return view('garantia.reporte_pdf',compact('garantias','logo1','logo2','reporte','fecha','fecha'));
+    
+                $pdf=app('dompdf.wrapper');
+                $pdf->loadView('garantia.reporte_pdf',['garantias'=>$garantias,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                $pdf->set_paper('letter', 'landscape');
+                //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+            // $pdf->loadHTML($pdf);
+                return $pdf->stream(); 
+
+            } 
+
+        }
+        else{  
+            if ($garantia==1) {
+                $respuesta= Devolucion::whereYear('created_at', substr($inicio,0,4))
+                   ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                   ->whereMonth('created_at','<=', substr($fin,5,2))
+                   ->whereDay('created_at','>' , substr($inicio,8,2))
+                   ->whereDay('created_at','<=', substr($fin,8,2))
+                   ->get(); 
+                   $reporte="Reporte de devoluciones de ".$inicio. " al ". $fin;
+           
+                   
+                   //in View<img src=" $data['logo'] " width="150" height="150"/>
+                   //return view('devolucion.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+    
+                   $pdf=app('dompdf.wrapper');
+                   $pdf->loadView('devolucion.reporte_pdf',['devoluciones'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+                  // $pdf->loadHTML($pdf);
+                   return $pdf->stream();   
+            }  
+            else {
+                
+                $respuesta= Devolucion_forestal::whereYear('created_at', substr($inicio,0,4))
+                   ->whereMonth('created_at','>=' ,substr( $inicio,5,2))
+                   ->whereMonth('created_at','<=', substr($fin,5,2))
+                   ->whereDay('created_at','>' , substr($inicio,8,2))
+                   ->whereDay('created_at','<=', substr($fin,8,2))
+                   ->get(); 
+                   $reporte="Reporte de devoluciones GRFFS de ".$inicio. " al ". $fin;
+           
+                   
+                   //in View<img src=" $data['logo'] " width="150" height="150"/>
+                   //return view('devolucion.reporte_pdf',compact('respuesta','logo','reporte','fecha'));
+    
+                   $pdf=app('dompdf.wrapper');
+                   $pdf->loadView('devolucion.reporte_pdf',['devoluciones'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
+                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
+                  // $pdf->loadHTML($pdf);
+                   return $pdf->stream();   
+            }                                   
+        }
     } 
     public function roComprobantes(){        
         $menu='ro';
@@ -119,6 +170,18 @@ class AdminController extends Controller
         $menu='gar';
         $proveedores=Proveedor::get();
         return view('comprobante.gar_comprobante',compact('menu','proveedores'));
+    }
+    
+    public function aprovechamiento(){        
+        $menu='aprovechamiento';
+        $proveedores=Proveedor::get();
+        return view('comprobante.aprovechamiento',compact('menu','proveedores'));
+    }
+    
+    public function donacion(){        
+        $menu='donaciones';
+        $proveedores=Proveedor::get();
+        return view('comprobante.donacion',compact('menu','proveedores'));
     }
     
     public function comprobantes(){  

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevolucionsTable extends Migration
+class CreateDevolucionForestalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDevolucionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('devoluciones', function (Blueprint $table) {
+        Schema::create('devolucion_forestales', function (Blueprint $table) {
             $table->id();
             $table->string('nro')->nullable();
             $table->string('reg_siaf')->nullable();
@@ -27,7 +27,7 @@ class CreateDevolucionsTable extends Migration
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('garantia_id')->references('id')->on('garantias');
+            $table->foreign('garantia_id')->references('id')->on('garantia_forestales');
         });
     }
 
@@ -38,6 +38,6 @@ class CreateDevolucionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devoluciones');
+        Schema::dropIfExists('devolucion_forestales');
     }
 }

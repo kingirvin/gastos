@@ -8,7 +8,7 @@
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
 <script src="{{asset('/libs/tom-select/dist/js/tom-select.base.min.js')}}"></script>
 
-<script src="{{asset('/js/rdr_comprobante.js')}}"></script>  
+<script src="{{asset('/js/donacion.js')}}"></script>  
 <script>
   var tabla;
   var item_select;
@@ -71,7 +71,7 @@
             order: [
             [0, "desc"]
             ],
-          ajax:'{!!route("listaRdrComprobantes")!!}',
+          ajax:'{!!route("listaDonacion")!!}',
         columns:[
             {data:'id'},
             {data:'siaf'},
@@ -162,7 +162,7 @@
   </script>
 
 @endsection
-@section('nombre') Recursos Directamente Recaudados @endsection
+@section('nombre') Donación @endsection
 @section('content')
 <div class="col-12  py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -172,7 +172,7 @@
                         <div class="card-header"><div class="col-6 col-sm-4 col-md-2 py-3">
                             <div class="btn-list">
                                 <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-comprobante" onclick="limpiarForm()">
-                                   Nuevo
+                                   Nuevo comprobante
                                 </a>
                             </div>
                         </div>
@@ -208,7 +208,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo recurso directamente recaudado</h5>
+          <h5 class="modal-title">Nueva donación</h5>
         </div>
         <div  id="form_gasto" class="modal-body">
           @csrf
@@ -221,7 +221,7 @@
                     <input type="text" class="form-control mayuscula" id="siaf" name="example-text-input" placeholder="">
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Tipo documento</label>                                  
+                    <label class="form-label">Tipo documento</label>                    
                     <select type="text" class="form-select" placeholder="Selecione tipo de documento" id="documento_tipo"  autocomplete="off">
                         <option value="O/C">O/C</option>
                         <option value="O/S">O/S</option>

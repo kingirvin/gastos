@@ -8,9 +8,10 @@
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
 <script src="{{asset('/libs/tom-select/dist/js/tom-select.base.min.js')}}"></script>
 
-<script src="{{asset('/js/rdr_comprobante.js')}}"></script>  
+<script src="{{asset('/js/aprovechamiento.js')}}"></script>  
 <script>
   var tabla;
+  var tipo_usuario={!!Auth::user()->tipo_id!!}
   var item_select;
   $(document).ready(function(){
 
@@ -71,7 +72,7 @@
             order: [
             [0, "desc"]
             ],
-          ajax:'{!!route("listaRdrComprobantes")!!}',
+          ajax:'{!!route("listaAprovechamiento")!!}',
         columns:[
             {data:'id'},
             {data:'siaf'},
@@ -107,20 +108,31 @@
                 render: function ( data, type, full ) {  
                     if(full.eliminar=="1")          
                         return "<p style='color: #c70101;'>Pendiente</p>"; 
-                    else
-                        return " "; 
+                    else{
+                        if (full.eliminar=="2") {
+                            return "<p >Anulado</p>";                             
+                        }
+                        else
+                            return " "; 
+                    }
                 }                                        
             },
             {data:null,"orderable": false, "searchable": false,
                 render: function ( data, type, full ) {         
-                    if(full.eliminar=="1")  {                    
-                        res ='<button class="btn btn-white btn-icon" onclick="modificar('+full.id+');" title="MODIFICAR GARANTIA"  data-bs-toggle="modal" data-bs-target="#modal-comprobante"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
-                        '<button class="btn btn-danger btn-icon" onclick="deshacer('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cup-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8h-3v3h6m4 0h4v-3h-7"></path><path d="M17.5 11l-.323 2.154m-.525 3.497l-.652 4.349h-8l-1.5 -10"></path><path d="M6 8v-1c0 -.296 .064 -.577 .18 -.83m2.82 -1.17h7a2 2 0 0 1 2 2v1"></path><path d="M15 5v-2"></path><path d="M3 3l18 18"></path></svg></button></div>';
-                        return res;
+                    if(full.eliminar=="1"){ 
+                        if(tipo_usuario=="1")    {               
+                            res ='<button class="btn btn-success btn-icon" style="margin-right: 4px;" onclick="deshacer('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cup-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8h-3v3h6m4 0h4v-3h-7"></path><path d="M17.5 11l-.323 2.154m-.525 3.497l-.652 4.349h-8l-1.5 -10"></path><path d="M6 8v-1c0 -.296 .064 -.577 .18 -.83m2.82 -1.17h7a2 2 0 0 1 2 2v1"></path><path d="M15 5v-2"></path><path d="M3 3l18 18"></path></svg></button></div>'+
+                                '<button class="btn btn-danger btn-icon" onclick="eliminar('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="4" y1="7" x2="20" y2="7"></line><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg></button></div>';
+                            return res;
+                        }
+                        else{              
+                            res ='<button class="btn btn-success btn-icon" onclick="deshacer('+full.id+');" title="DESHACER"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cup-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8 8h-3v3h6m4 0h4v-3h-7"></path><path d="M17.5 11l-.323 2.154m-.525 3.497l-.652 4.349h-8l-1.5 -10"></path><path d="M6 8v-1c0 -.296 .064 -.577 .18 -.83m2.82 -1.17h7a2 2 0 0 1 2 2v1"></path><path d="M15 5v-2"></path><path d="M3 3l18 18"></path></svg></button></div>';
+                            return res;
+                        }
                     } 
                     else {
                         if(full.eliminar=="0") {          
-                            res ='<button class="btn btn-white btn-icon" onclick="modificar('+full.id+');" title="MODIFICAR GARANTIA"  data-bs-toggle="modal" data-bs-target="#modal-comprobante"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
+                            res ='<button class="btn btn-white btn-icon"  style="margin-right: 4px;" onclick="modificar('+full.id+');" title="MODIFICAR GARANTIA"  data-bs-toggle="modal" data-bs-target="#modal-comprobante"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"></path><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"></path><line x1="16" y1="5" x2="19" y2="8"></line></svg></button>'+
                             '<button class="btn btn-danger btn-icon" onclick="eliminar('+full.id+');" title="ELIMINAR"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="4" y1="7" x2="20" y2="7"></line><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path></svg></button></div>';
                             return res;
                         }                     
@@ -162,7 +174,7 @@
   </script>
 
 @endsection
-@section('nombre') Recursos Directamente Recaudados @endsection
+@section('nombre') Recursos Ordinarios  @endsection
 @section('content')
 <div class="col-12  py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -208,7 +220,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo recurso directamente recaudado</h5>
+          <h5 class="modal-title">Nuevo recurso ordinario</h5>
         </div>
         <div  id="form_gasto" class="modal-body">
           @csrf
@@ -221,7 +233,7 @@
                     <input type="text" class="form-control mayuscula" id="siaf" name="example-text-input" placeholder="">
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Tipo documento</label>                                  
+                    <label class="form-label">Tipo documento</label>                   
                     <select type="text" class="form-select" placeholder="Selecione tipo de documento" id="documento_tipo"  autocomplete="off">
                         <option value="O/C">O/C</option>
                         <option value="O/S">O/S</option>

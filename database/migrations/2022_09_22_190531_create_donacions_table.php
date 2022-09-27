@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRo_comprobantesTable extends Migration
+class CreateDonacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateRo_comprobantesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ro_comprobantes', function (Blueprint $table) {
-            $table->id();// nro c/p
+        Schema::create('donaciones', function (Blueprint $table) {
+            $table->id();
             $table->string('siaf')->nullable();
             $table->string('documento_tipo')->nullable();
             $table->string('nro_doc')->nullable();
             $table->string('importe')->nullable();
             $table->tinyInteger('estado')->default('1');
+            $table->tinyInteger('eliminar')->default('0');
             $table->unsignedBigInteger('user_id');  
             $table->unsignedBigInteger('proveedor_id');  
             //id de los tipos de datos;
@@ -37,6 +38,6 @@ class CreateRo_comprobantesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ro_comprobantes');
+        Schema::dropIfExists('donaciones');
     }
 }

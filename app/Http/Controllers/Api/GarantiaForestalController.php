@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Devolucion;
 use App\Garantia_forestal;
-use App\Garantia;
 use App\User;
 use Auth;
 use DataTables;
 
-class GarantiaController extends Controller
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class GarantiaForestalController extends Controller
 {
-    //
     //
     public function __construct()
     {
@@ -23,7 +20,7 @@ class GarantiaController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Garantia::with('devoluciones')->orderBy('id', 'DESC')->get();
+        $lista=Garantia_forestal::with('devoluciones')->orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 
@@ -31,7 +28,7 @@ class GarantiaController extends Controller
         //return $request;
         $user=Auth::user();
         if($request->id != "0"){
-            $garantia= Garantia::find($request->id);
+            $garantia= Garantia_forestal::find($request->id);
             $garantia->exp_siaf=$request->exp_siaf;
             $garantia->oc_os=$request->oc_os;
             $garantia->proveedor=$request->proveedor;
@@ -45,7 +42,7 @@ class GarantiaController extends Controller
             $garantia->user_id=$user->id;
         }
         else{
-            $garantia=new Garantia;
+            $garantia=new Garantia_forestal;
             $garantia->exp_siaf=$request->exp_siaf;
             $garantia->oc_os=$request->oc_os;
             $garantia->proveedor=$request->proveedor;
@@ -65,31 +62,20 @@ class GarantiaController extends Controller
 
     }
     public function buscar(Request $request){
-        return $garantia=Garantia::find($request->id);
+        return $garantia=Garantia_forestal::find($request->id);
     }
     public function listaIdNombre(Request $request){
-        $garantia= Garantia::select('id','oc_os as text')->orderBy('id', 'DESC')->get();
+        $garantia= Garantia_forestal::select('id','oc_os as text')->orderBy('id', 'DESC')->get();
         return response()->json([$garantia]);
     }
-    public function reporteBuscar(Request $request){   
-        if($request->id==1)  {   
-            $garantias= Garantia::whereYear('created_at', substr($request->inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
-                ->whereMonth('created_at','<=', substr($request->fin,5,2))
-                ->whereDay('created_at','>' , substr($request->inicio,8,2))
-                ->whereDay('created_at','<=', substr($request->fin,8,2))
-                ->orderBy('id', 'DESC')->get();
-            $total=count($garantias);
-        }
-        else {   
-            $garantias= Garantia_forestal::whereYear('created_at', substr($request->inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
-                ->whereMonth('created_at','<=', substr($request->fin,5,2))
-                ->whereDay('created_at','>' , substr($request->inicio,8,2))
-                ->whereDay('created_at','<=', substr($request->fin,8,2))
-                ->orderBy('id', 'DESC')->get();
-            $total=count($garantias);
-        }
+    public function reporteBuscar(Request $request){        
+        $garantias= Garantia_forestal::whereYear('created_at', substr($request->inicio,0,4))
+            ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
+            ->whereMonth('created_at','<=', substr($request->fin,5,2))
+            ->whereDay('created_at','>' , substr($request->inicio,8,2))
+            ->whereDay('created_at','<=', substr($request->fin,8,2))
+            ->orderBy('id', 'DESC')->get();
+        $total=count($garantias);
             return response()->json(['data'=>$garantias, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
     }
 }

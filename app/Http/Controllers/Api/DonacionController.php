@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Devolucion;
 use App\Garantia;
-use App\Rdr_comprobante;
+use App\Donacion;
 use App\Proveedor;
 use App\User;
 use Auth;
@@ -12,9 +11,10 @@ use DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RdrComprobanteController extends Controller
+class DonacionController extends Controller
 {
-    // //
+    //
+    //
     public function __construct()
     {
         $this->middleware('auth');        
@@ -22,7 +22,7 @@ class RdrComprobanteController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Rdr_comprobante::with('proveedor','usuario')->orderBy('id', 'DESC')->get();
+        $lista=Donacion::with('proveedor','usuario')->orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 
@@ -48,7 +48,7 @@ class RdrComprobanteController extends Controller
             $request->proveedor_id=$proveedor->id;
         }
         if($request->comprobante_id!="0"){
-            $comprobante=Rdr_comprobante::find($request->comprobante_id);            
+            $comprobante=Donacion::find($request->comprobante_id);            
             $comprobante->siaf=$request->siaf;
             $comprobante->documento_tipo=$request->documento_tipo;
             $comprobante->nro_doc=$request->nro_doc;
@@ -58,7 +58,7 @@ class RdrComprobanteController extends Controller
             $comprobante->proveedor_id=$request->proveedor_id;
         }
         else{
-            $comprobante=new Rdr_comprobante;   
+            $comprobante=new Donacion;   
             $comprobante->siaf=$request->siaf;
             $comprobante->documento_tipo=$request->documento_tipo;
             $comprobante->nro_doc=$request->nro_doc;
@@ -76,26 +76,27 @@ class RdrComprobanteController extends Controller
     }
     public function buscar(Request $request){
         //return $request;
-        return Rdr_comprobante::with('proveedor')->find($request->id);
+        return Donacion::with('proveedor')->find($request->id);
     }
     public function eliminar(Request $request){        
         //return $request;
         $user=Auth::user();
         if($user->tipo_id == 1 && $user->oficina=="Comprobantes"){            
-            $comprobante= Rdr_comprobante::find($request->id);
+            $comprobante= Donacion::find($request->id);
             $comprobante->eliminar="2";
             return $comprobante->save();
         }
         else{
-            $comprobante= Rdr_comprobante::find($request->id);
+            $comprobante= Donacion::find($request->id);
             $comprobante->eliminar="1";
             return $comprobante->save();
         }
     }
     public function deshacer(Request $request){
-            $comprobante= Ro_comprobante::find($request->id);
+            $comprobante= Donacion::find($request->id);
             $comprobante->eliminar="0";
             return $comprobante->save();
     }
 
 }
+

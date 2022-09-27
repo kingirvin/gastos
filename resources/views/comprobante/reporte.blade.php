@@ -142,9 +142,11 @@
                                         <div class="mb-3">
                                             <label class="form-label">Comprobate</label>
                                             <select type="text" class="form-select" placeholder="Select a date" id="comprobante" value="">
-                                                <option value="1">RO</option>
-                                                <option value="2">RDR</option>
-                                                <option value="3">Garantia</option>
+                                                <option value="1"> Recursos Ordinarios</option>
+                                                <option value="2">Recursos Directamente Recaudados</option>
+                                                <option value="3">Garantías</option>
+                                                <option value="4">Aprovechamiento</option>
+                                                <option value="5">Donaciones y Transferencias</option>
                                             </select>
                                         </div>
 

@@ -45,6 +45,7 @@
   $(document).ready(function(){
     
     var datastring = {
+        id:document.getElementById('garantia').value,
         inicio:document.getElementById('datepicker-inicio').value,
         fin:document.getElementById('datepicker-fin').value,
         };
@@ -130,7 +131,17 @@
                             </div> 
                             <div class="col-12"> 
                                 <div class="row">
-                                    <div class="col-4">           
+                                    <div class="col-2">           
+                                        <div class="mb-3">
+                                            <label class="form-label">Tipo</label>
+                                            <select type="text" class="form-select" placeholder="Select a date" id="garantia" value="">
+                                                <option value="1"> Garantias</option>
+                                                <option value="2">Garantias GRFFS</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-3">           
                                         <div class="mb-3">
                                             <label class="form-label">Inicio</label>                                
                                             <div class="input-icon">
@@ -142,7 +153,7 @@
                                         </div>  
 
                                     </div>              
-                                    <div class="col-4">            
+                                    <div class="col-3">            
                                         <div class="mb-3">
                                             <label class="form-label">Fin</label>                                
                                             <div class="input-icon">
@@ -154,7 +165,7 @@
                                         </div>
                                     </div> 
                                     <div class="col-2" style="padding-top: 1.7rem !important;">
-                                        <a href="javascript:void(0)" class="btn btn-outline-success w-100" onclick="actualizarTabla()">
+                                        <a href="javascript:void(0)" class="btn btn-outline-success w-100" onclick="actualizarTabla(1)">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line></svg>
                                             Buscar
                                         </a>

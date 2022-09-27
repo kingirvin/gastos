@@ -81,13 +81,21 @@ class RoComprobanteController extends Controller
     public function eliminar(Request $request){
         //return $request;
         $user=Auth::user();
-        if($user->tipo_id == 1 && $user->oficina=="Comprobantes")
-            return Ro_comprobante::destroy($request->id);
+        if($user->tipo_id == 1 && $user->oficina=="Comprobantes"){
+            $comprobante= Ro_comprobante::find($request->id);
+            $comprobante->eliminar="2";
+            return $comprobante->save();
+        }
         else{
             $comprobante= Ro_comprobante::find($request->id);
             $comprobante->eliminar="1";
             return $comprobante->save();
         }
+    }
+    public function deshacer(Request $request){
+            $comprobante= Ro_comprobante::find($request->id);
+            $comprobante->eliminar="0";
+            return $comprobante->save();
     }
 
 }

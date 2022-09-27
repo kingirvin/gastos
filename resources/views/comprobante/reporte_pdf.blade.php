@@ -71,7 +71,11 @@
             </div>
         </header>
         <div style="padding-top: 0px;margin: 10px;width: 100%;">
-            <div class="texto">            
+            <div class="texto" style="text-align: center;">            
+                <h5 style="margin: 0;">REGISTRO DE COMPROBANTES PAGO</h5> 
+                <h5>CUENTA N° CTA {{$nro}}</h5> 
+            </div>
+            <div class="">            
                 <h5>Usuario: {{Auth::user()->name." ".Auth::user()->apaterno." ".Auth::user()->amaterno}}</br>
                     {{$reporte}}</br>
                     Generado el {{$fecha}}

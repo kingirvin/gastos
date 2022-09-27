@@ -89,27 +89,54 @@ function modificar(id) {
 	
 }
 function eliminar(id) {
-	var datastring = {
-		id:id,
-	};
-	var route = "/json/roComprobante/eliminar";
-	$.ajax({
-		url: route,
-		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-		type: 'POST',
-		datatype: 'json',
-		data: datastring,
-		success: function (res) { 
-			tabla.ajax.reload();               
-			$('#cargando_pagina').hide();
-			$('#modal-comprobante').modal('hide')
-		},
-		error: function (error) {
-			//alerta(response_helper(error),false);
-			$('#cargando_pagina').hide();
-		}
-	});		
-	
+	var confirmacion = confirm("Esta seguro de anular el comprobante?");
+	if(confirmacion){
+		var datastring = {
+			id:id,
+		};
+		var route = "/json/roComprobante/eliminar";
+		$.ajax({
+			url: route,
+			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			type: 'POST',
+			datatype: 'json',
+			data: datastring,
+			success: function (res) { 
+				tabla.ajax.reload();               
+				$('#cargando_pagina').hide();
+				$('#modal-comprobante').modal('hide')
+			},
+			error: function (error) {
+				//alerta(response_helper(error),false);
+				$('#cargando_pagina').hide();
+			}
+		});	
+	} 	
+}
+function deshacer(id) {
+	var confirmacion = confirm("Esta seguro de desea restaurar el comprobante?");
+	if(confirmacion){
+		var datastring = {
+			id:id,
+		};
+		var route = "/json/roComprobante/deshacer";
+		$.ajax({
+			url: route,
+			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			type: 'POST',
+			datatype: 'json',
+			data: datastring,
+			success: function (res) { 
+				tabla.ajax.reload();               
+				$('#cargando_pagina').hide();
+				$('#modal-comprobante').modal('hide')
+			},
+			error: function (error) {
+				//alerta(response_helper(error),false);
+				$('#cargando_pagina').hide();
+			}
+		});	
+	} 	
 }
 function combo() {
 	new TomSelect('#select-tags',{

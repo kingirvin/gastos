@@ -37,7 +37,7 @@ function guardar() {
             proveedor_nombre:document.getElementById('proveedor_nombre').value,
             ruc:document.getElementById('ruc').value,
         };
-        var route = "/json/garComprobante/nuevo";
+        var route = "/json/donacion/nuevo";
         $.ajax({
             url: route,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -61,7 +61,7 @@ function modificar(id) {
 	var datastring = {
 		id:id,
 	};
-	var route = "/json/garComprobante/buscar";
+	var route = "/json/donacion/buscar";
 	$.ajax({
 		url: route,
 		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -95,7 +95,7 @@ var confirmacion = confirm("Esta seguro de anular el comprobante?");
 		var datastring = {
 			id:id,
 		};
-		var route = "/json/garComprobante/eliminar";
+		var route = "/json/donacion/eliminar";
 		$.ajax({
 			url: route,
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -120,7 +120,7 @@ function deshacer(id) {
 		var datastring = {
 			id:id,
 		};
-		var route = "/json/garComprobante/deshacer";
+		var route = "/json/donacion/deshacer";
 		$.ajax({
 			url: route,
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
