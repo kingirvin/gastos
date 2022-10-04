@@ -38,8 +38,10 @@
                   render: function ( data, type, full ) {                         
                     if(full.estado=="1")
                       return "<p style='color: green;'>Ingreso</p>";
-                    else
+                    else if(full.estado=="2")
                       return "<p style='color: red;'>Devuelto</p>";
+                    else
+                      return "<p style='color: #a7a742;;'>Pendiente</p>";
                   }                                        
             },
             {"data":null,"orderable": false, "searchable": false,
@@ -103,12 +105,12 @@
               search:         "Buscar",
               lengthMenu:     "Mostrar _MENU_ registros",
               info:           "Mostrar de _START_ a _END_ de _TOTAL_ registros",
-              infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+              infoEmpty:      "0 registros",
               infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
               infoPostFix:    "",
               loadingRecords: "Chargement en cours...",
               zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-              emptyTable:     "Aucune donnée disponible dans le tableau",
+              emptyTable:     "No se encontraron registros",
               paginate: {
                   first:      "Primero",
                   previous:   "Antes",
@@ -246,37 +248,29 @@
           <div class="row">
             <div class="col lg-6">
               <div class="form-group mb-3">
-                <label class="form-label">Exp. SiAF</span></label>
+                <label class="form-label">Exp. SiAF<span class="form-required">*</span></label>
                 <input type="text" class="form-control mayuscula" id="exp_siaf" name="example-text-input" placeholder="" >
               </div>
               <div class="form-group mb-3">
-                <label class="form-label">O/C - O/S<span class="form-required">*</span></label>
-                <input type="text" class="form-control mayuscula" id="oc_os" name="example-text-input" placeholder="">
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label">Proveerdor<span class="form-required">*</span></label>
+                <label class="form-label">Proveerdor</label>
                 <input type="text" class="form-control mayuscula" id="proveedor" name="example-text-input" placeholder="">
               </div>
               <div class="form-group mb-3">
-                <label class="form-label">Nro Voucher<span class="form-required">*</span></label>
+                <label class="form-label">Nro Voucher</label>
                 <input type="text" class="form-control mayuscula" id="voucher" name="example-text-input" placeholder="">
               </div>
               <div class="form-group mb-3">
-                <label class="form-label">Recibo<span class="form-required">*</span></label>
+                <label class="form-label">Recibo</label>
                 <input type="text" class="form-control mayuscula" id="recibo" name="example-text-input" placeholder="">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group mb-3">
-                <label class="form-label">Exp. SIAF<span class="form-required">*</span></label>
-                <input type="text" class="form-control mayuscula" id="siaf" name="example-text-input" placeholder="">
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label">Concepto de registro<span class="form-required">*</span></label>
+                <label class="form-label">Concepto de registro</label>
                 <input type="text" class="form-control mayuscula" id="registro" name="example-text-input" placeholder="">
               </div>
               <div class="form-group mb-3">
-                <label class="form-label">Monto<span class="form-required">*</span></label>
+                <label class="form-label">Monto</label>
                 <input type="text" class="form-control mayuscula" id="monto" name="example-text-input" placeholder="">
               </div>
               <div class="form-group mb-3">

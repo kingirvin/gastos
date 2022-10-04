@@ -29,6 +29,18 @@ class GarantiaController extends Controller
     public function nuevo(Request $request) 
     { 
         //return $request;
+        $estado="1";
+        if(
+            $request->exp_siaf==null||
+            $request->oc_os==null||
+            $request->proveedor==null||
+            $request->voucher==null||
+            $request->siaf==null||
+            $request->registro==null||
+            $request->monto==null||
+            $request->mes==null||
+            $request->recibo==null)
+            $estado="3";
         $user=Auth::user();
         if($request->id != "0"){
             $garantia= Garantia::find($request->id);
@@ -38,10 +50,10 @@ class GarantiaController extends Controller
             $garantia->voucher=$request->voucher;
             $garantia->siaf=$request->siaf;
             $garantia->registro=$request->registro;
-            $garantia->monto=$request->monto;
+            $garantia->monto=number_format($request->monto,2,'.',',');
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
-            $garantia->estado="1";
+            $garantia->estado=$estado;
             $garantia->user_id=$user->id;
         }
         else{
@@ -52,10 +64,10 @@ class GarantiaController extends Controller
             $garantia->voucher=$request->voucher;
             $garantia->siaf=$request->siaf;
             $garantia->registro=$request->registro;
-            $garantia->monto=$request->monto;
+            $garantia->monto=number_format($request->monto,2,'.',',');
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
-            $garantia->estado="1";
+            $garantia->estado=$estado;
             $garantia->user_id=$user->id;
         }
         if($garantia->save())

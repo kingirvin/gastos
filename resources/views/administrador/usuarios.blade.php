@@ -151,7 +151,6 @@
                     <option value="">Selecione oficina</option>
                     <option value="Garantias">Garantiass</option>
                     <option value="Devoluciones">Devoluciones</option>
-                    <option value="Comprobantes">Comprobantes</option>
                   @endif
                 </select>
               </div>

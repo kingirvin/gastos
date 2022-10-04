@@ -104,7 +104,7 @@
               infoPostFix:    "",
               loadingRecords: "Chargement en cours...",
               zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-              emptyTable:     "Nose encontraron registros",
+              emptyTable:     "No se encontraron registros",
               paginate: {
                   first:      "Primero",
                   previous:   "Antes",

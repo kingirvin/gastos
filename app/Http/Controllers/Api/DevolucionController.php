@@ -36,7 +36,7 @@ class DevolucionController extends Controller
             $devolucion->reg_siaf=$request->siaf;
             $devolucion->periodo=$request->periodo;
             $devolucion->cheque=$request->cheque;
-            $devolucion->monto=$request->monto;
+            $devolucion->monto=number_format($request->monto,2,'.',',');
             $devolucion->observacion=$request->observacion;
             $devolucion->user_id=$user->id;
             $devolucion->garantia_id=$request->garantia_id;
@@ -47,7 +47,7 @@ class DevolucionController extends Controller
             $devolucion->reg_siaf=$request->siaf;
             $devolucion->periodo=$request->periodo;
             $devolucion->cheque=$request->cheque;
-            $devolucion->monto=$request->monto;
+            $devolucion->monto=number_format($request->monto,2,'.',',');
             $devolucion->observacion=$request->observacion;
             $devolucion->user_id=$user->id;
             $devolucion->estado="1";

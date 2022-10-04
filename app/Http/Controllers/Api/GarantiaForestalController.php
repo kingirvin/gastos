@@ -26,33 +26,39 @@ class GarantiaForestalController extends Controller
     public function nuevo(Request $request) 
     { 
         //return $request;
+        $estado="1";
+        if(    
+        $request->exp_siaf==null ||
+        $request->proveedor==null ||
+        $request->voucher==null ||
+        $request->registro==null ||
+        $request->monto==null ||
+        $request->mes==null ||
+        $request->recibo==null)
+            $estado="3";
         $user=Auth::user();
         if($request->id != "0"){
             $garantia= Garantia_forestal::find($request->id);
             $garantia->exp_siaf=$request->exp_siaf;
-            $garantia->oc_os=$request->oc_os;
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
-            $garantia->siaf=$request->siaf;
             $garantia->registro=$request->registro;
-            $garantia->monto=$request->monto;
+            $garantia->monto=number_format($request->monto,2,'.',',');
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
-            $garantia->estado="1";
+            $garantia->estado=$estado;
             $garantia->user_id=$user->id;
         }
         else{
             $garantia=new Garantia_forestal;
             $garantia->exp_siaf=$request->exp_siaf;
-            $garantia->oc_os=$request->oc_os;
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
-            $garantia->siaf=$request->siaf;
             $garantia->registro=$request->registro;
-            $garantia->monto=$request->monto;
+            $garantia->monto=number_format($request->monto,2,'.',',');
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
-            $garantia->estado="1";
+            $garantia->estado=$estado;
             $garantia->user_id=$user->id;
         }
         if($garantia->save())

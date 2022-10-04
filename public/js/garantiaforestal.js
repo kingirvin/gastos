@@ -5,10 +5,8 @@ function guardarCuenta() {
         var datastring = {
             id:document.getElementById('garantia_id').value,
             exp_siaf:document.getElementById('exp_siaf').value,
-            oc_os:document.getElementById('oc_os').value,
             proveedor:document.getElementById('proveedor').value,
             voucher:document.getElementById('voucher').value,
-            siaf:document.getElementById('siaf').value,
             registro:document.getElementById('registro').value,
             monto:document.getElementById('monto').value,
             mes:document.getElementById('mes').value,
@@ -41,10 +39,8 @@ function limpiarform(){
     mes["mes"]='Selecione mes';
     document.getElementById('garantia_id').value="0";
     document.getElementById('exp_siaf').value="";
-    document.getElementById('oc_os').value="";
     document.getElementById('proveedor').value="";
     document.getElementById('voucher').value="";
-    document.getElementById('siaf').value="";
     document.getElementById('registro').value="";
     document.getElementById('monto').value="";
     document.getElementById('recibo').value="";
@@ -132,10 +128,8 @@ function modificar(id){
         success: function (res) {    
         document.getElementById('garantia_id').value=res['id'];
         document.getElementById('exp_siaf').value=res['exp_siaf'];
-        document.getElementById('oc_os').value=res['oc_os'];
         document.getElementById('proveedor').value=res['proveedor'];
         document.getElementById('voucher').value=res['voucher'];
-        document.getElementById('siaf').value=res['siaf'];
         document.getElementById('registro').value=res['registro'];
         document.getElementById('monto').value=res['monto'];
         document.getElementById('mes').value=res['mes'];

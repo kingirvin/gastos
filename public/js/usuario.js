@@ -73,7 +73,7 @@ function modificar(id) {
         datatype: 'json',
         data: datastring,
         success: function (res) {    
-            document.getElementById('divPassword').style.display="block";
+            document.getElementById('divPassword').style.display="none";
 
             document.getElementById('usuario_id').value=res["id"];
             document.getElementById('nombre').value=res["name"];
