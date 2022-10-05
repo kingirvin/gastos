@@ -43,7 +43,7 @@ class GarantiaForestalController extends Controller
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
             $garantia->registro=$request->registro;
-            $garantia->monto=number_format($request->monto,2,'.',',');
+            $garantia->monto=$request->monto;
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
             $garantia->estado=$estado;
@@ -55,7 +55,7 @@ class GarantiaForestalController extends Controller
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
             $garantia->registro=$request->registro;
-            $garantia->monto=number_format($request->monto,2,'.',',');
+            $garantia->monto=$request->monto;
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
             $garantia->estado=$estado;

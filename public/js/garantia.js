@@ -1,4 +1,13 @@
+let myNumericInput = new AutoNumeric('#monto',{decimalPlaces: 2});
 
+document.querySelector('#monto').addEventListener('keyup',() =>{
+  console.log(myNumericInput.getNumber())
+})
+let myNumericInputDe = new AutoNumeric('#montoDevolucion',{decimalPlaces: 2});
+
+document.querySelector('#monto').addEventListener('keyup',() =>{
+  console.log(myNumericInputDe.getNumber())
+})
 function guardarCuenta() {
     if( validar("#form_garantia")){   
         $( "#cargando_pagina" ).show();

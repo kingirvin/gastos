@@ -5,7 +5,12 @@
 <link rel="stylesheet" href="{{asset('/css/garantia.css')}}">
 @endsection
 @section('jss') 
-<script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>  
+<script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
+<script src="{{asset('/js/autoNumeric.js')}}"></script>  
+<!-- ...or, you may also directly use a CDN :-->
+<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
+<!-- ...or -->
+<script src="https://unpkg.com/autonumeric"></script> 
 <script src="{{asset('/js/garantia.js')}}"></script>  
 <script>
   var tabla;
@@ -31,6 +36,7 @@
             {"data":'voucher'},
             {"data":'siaf'},
             {"data":'registro'},
+            //new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(number)
             {"data":'monto'},
             {"data":'mes'},
             {"data":'recibo'},
@@ -301,7 +307,6 @@
                 <div class="form-group mb-3">
                   <label class="form-label">Mes</label>
                   <select id="mes" class="form-control">
-                    <option value="0">Selecione mes</option>
                     <option value="Enero">Enero</option>
                     <option value="Febreo">Febreo</option>
                     <option value="Marzo">Marzo</option>

@@ -6,6 +6,11 @@
 @endsection
 @section('jss') 
 <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>  
+<script src="{{asset('/js/autoNumeric.js')}}"></script>  
+<!-- ...or, you may also directly use a CDN :-->
+<script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
+<!-- ...or -->
+<script src="https://unpkg.com/autonumeric"></script> 
 <script src="{{asset('/js/garantiaforestal.js')}}"></script>  
 <script>
   var tabla;
