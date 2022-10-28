@@ -14,11 +14,14 @@ class Garantia extends Model
         'voucher',
         'siaf',
         'registro',
+        'fecha',
         'monto',
         'mes',
         'recibo',
         'estado',
         'user_id',
+        'eliminado',
+        'estado_d',
     ]; 
     
     public function usuario()
@@ -28,5 +31,9 @@ class Garantia extends Model
     public function devoluciones()
     {
         return $this->hasMany('App\Devolucion', 'garantia_id');
+    }
+    public function tramite()
+    {
+        return $this->hasOne('App\Tramite', 'garantia_id');
     }
 }

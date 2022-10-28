@@ -9,7 +9,7 @@
             </div>
             <div>
                 <div class="d-flex mb-3">
-                  <h1 class="m-0">Plataforma de tesoreria</h1>
+                  <h1 class="m-0">Plataforma de Garantias</h1>
                 </div>
             </div>
             <p style="text-align: justify;">

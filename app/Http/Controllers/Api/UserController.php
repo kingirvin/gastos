@@ -22,11 +22,7 @@ class UserController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $user=Auth::user()->oficina;
-        if($user == "Comprobantes")
-            $lista=User::where("oficina",$user)->orderBy('id', 'DESC')->get();
-        else
-            $lista=User::where("oficina","Devoluciones")->orwhere("oficina","Garantias")->orderBy('id', 'DESC')->get();
+        $lista=User::orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 

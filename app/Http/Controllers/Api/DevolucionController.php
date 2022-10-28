@@ -36,7 +36,7 @@ class DevolucionController extends Controller
             $devolucion->reg_siaf=$request->siaf;
             $devolucion->periodo=$request->periodo;
             $devolucion->cheque=$request->cheque;
-            $devolucion->monto=number_format($request->monto,2,'.',',');
+            $devolucion->monto=$request->monto;
             $devolucion->observacion=$request->observacion;
             $devolucion->user_id=$user->id;
             $devolucion->garantia_id=$request->garantia_id;
@@ -47,7 +47,7 @@ class DevolucionController extends Controller
             $devolucion->reg_siaf=$request->siaf;
             $devolucion->periodo=$request->periodo;
             $devolucion->cheque=$request->cheque;
-            $devolucion->monto=number_format($request->monto,2,'.',',');
+            $devolucion->monto=$request->monto;
             $devolucion->observacion=$request->observacion;
             $devolucion->user_id=$user->id;
             $devolucion->estado="1";
@@ -56,7 +56,7 @@ class DevolucionController extends Controller
         }
         if($devolucion->save()){
             $garantia=Garantia::find($request->garantia_id);
-            $garantia->estado ="0";
+            $garantia->estado_d ="0";
             $garantia->save();
             return response()->json(['message'=>'Se guardo correctamente'], 200);            
         }

@@ -22,7 +22,7 @@ function actualizarTabla(id) {
                   "columns":[
                       {"data":null,"orderable": false, "searchable": false,
                           render: function ( data, type, full ) {                                             
-                              var fecha=full.created_at; 
+                              var fecha=full.fecha; 
                               var temp=fecha.substr(0,10); 
                               return   temp;                
                           }                                        
@@ -85,8 +85,8 @@ function actualizarTabla(id) {
                   "columns":[
                       {"data":null,"orderable": false, "searchable": false,
                           render: function ( data, type, full ) {                      
-                              var fecha=full.created_at; 
-                              var temp=fecha.substr(0,10); 
+                            var fecha=full.fecha; 
+                            var temp=fecha.substr(0,10); 
                               return   temp;                
                           }                                        
                       },

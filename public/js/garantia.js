@@ -1,13 +1,3 @@
-let myNumericInput = new AutoNumeric('#monto',{decimalPlaces: 2});
-
-document.querySelector('#monto').addEventListener('keyup',() =>{
-  console.log(myNumericInput.getNumber())
-})
-let myNumericInputDe = new AutoNumeric('#montoDevolucion',{decimalPlaces: 2});
-
-document.querySelector('#monto').addEventListener('keyup',() =>{
-  console.log(myNumericInputDe.getNumber())
-})
 function guardarCuenta() {
     if( validar("#form_garantia")){   
         $( "#cargando_pagina" ).show();
@@ -18,6 +8,7 @@ function guardarCuenta() {
             proveedor:document.getElementById('proveedor').value,
             voucher:document.getElementById('voucher').value,
             siaf:document.getElementById('siaf').value,
+            fecha:document.getElementById('fecha').value,
             registro:document.getElementById('registro').value,
             monto:document.getElementById('monto').value,
             mes:document.getElementById('mes').value,
@@ -54,6 +45,7 @@ function limpiarform(){
     document.getElementById('proveedor').value="";
     document.getElementById('voucher').value="";
     document.getElementById('siaf').value="";
+    document.getElementById('fecha').value="";
     document.getElementById('registro').value="";
     document.getElementById('monto').value="";
     document.getElementById('recibo').value="";
@@ -145,6 +137,7 @@ function modificar(id){
         document.getElementById('proveedor').value=res['proveedor'];
         document.getElementById('voucher').value=res['voucher'];
         document.getElementById('siaf').value=res['siaf'];
+        document.getElementById('fecha').value=res['fecha'];
         document.getElementById('registro').value=res['registro'];
         document.getElementById('monto').value=res['monto'];
         document.getElementById('mes').value=res['mes'];
@@ -235,6 +228,67 @@ function modificarDevolucion(id){
 function activarForm() {
     document.getElementById("form_gasto").style.pointerEvents = "auto";
     document.getElementById("btnActualizarDevolucion").style.display = "none";
-    document.getElementById("btnGuardarDevolucion").style.display = "block";
+    document.getElementById("btnGuardarDevolucion").style.display = "block";        
+}
+/*
+estado 1: */
+function eliminar(id) {    	
+    var confirmacion = confirm("Esta seguro de eliminar?");
+    if(confirmacion){
+        var datastring = {
+            id:id,
+        };
+        var route = "/json/garantia/eliminar";
+        $.ajax({
+            url: route,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'POST',
+            datatype: 'json',
+            data: datastring,
+            success: function (res) {    
+                //alerta(res.message,true); 
+                tabla.ajax.reload();               
+                $('#cargando_pagina').hide();
+            },
+            error: function (error) {
+                //alerta(response_helper(error),false);
+                $('#cargando_pagina').hide();
+            }
+        });
+    }
         
+}
+function restablecer(id) {    	
+    var confirmacion = confirm("Esta seguro de restablecer?");
+    if(confirmacion){
+        var datastring = {
+            id:id,
+        };
+        var route = "/json/garantia/restablecer";
+        $.ajax({
+            url: route,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'POST',
+            datatype: 'json',
+            data: datastring,
+            success: function (res) {    
+                //alerta(res.message,true); 
+                tabla.ajax.reload();               
+                $('#cargando_pagina').hide();
+            },
+            error: function (error) {
+                //alerta(response_helper(error),false);
+                $('#cargando_pagina').hide();
+            }
+        });
+    }
+        
+}
+
+function format(input)
+{
+    var numero = input.value;
+    const noTruncarDecimales = {maximumFractionDigits: 2};
+    comas = numero.toLocaleString('en-US', noTruncarDecimales);
+    document.getElementById('monto').value=comas;
 }

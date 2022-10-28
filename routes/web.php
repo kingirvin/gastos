@@ -25,6 +25,7 @@ Route::get('/', function () {
 Auth::routes();
 //AJAX
 Route::prefix('vista')->group(function () {
+    Route::get('garantiasDe','AdminController@garantiasDe')->middleware('usuario');     
     Route::get('devoluciones','AdminController@devolucion')->middleware('usuario');     
     Route::get('garantias','AdminController@garantia')->middleware('usuario');      
     Route::get('garantiasForestal','AdminController@garantiasForestal')->middleware('usuario');      
@@ -48,6 +49,7 @@ Route::prefix('json')->group(function () {
     Route::post('garantia/buscar','Api\GarantiaController@buscar')->middleware('usuario'); 
     Route::post('garantias/reporteBuscar','Api\GarantiaController@reporteBuscar')->middleware('usuario'); 
     Route::post('garantia/eliminar','Api\GarantiaController@eliminar')->middleware('usuario');
+    Route::post('garantia/restablecer','Api\GarantiaController@restablecer')->middleware('usuario');
     // garantias forestal
 
     Route::get('garantiasForestal/listar','Api\GarantiaForestalController@listar')->middleware('usuario')->name('listagarantiaforestal');      
@@ -56,6 +58,7 @@ Route::prefix('json')->group(function () {
     Route::post('garantiasForestal/buscar','Api\GarantiaForestalController@buscar')->middleware('usuario'); 
     Route::post('garantiasForestals/reporteBuscar','Api\GarantiaForestalController@reporteBuscar')->middleware('usuario'); 
     Route::post('garantiasForestal/eliminar','Api\GarantiaForestalController@eliminar')->middleware('usuario');
+    Route::post('garantiasForestal/restablecer','Api\GarantiaForestalController@restablecer')->middleware('usuario');
 
 
 
@@ -107,7 +110,14 @@ Route::prefix('json')->group(function () {
     Route::post('rdrComprobante/buscar','Api\RdrComprobanteController@buscar')->middleware('usuario');      
     Route::post('rdrComprobante/eliminar','Api\RdrComprobanteController@eliminar')->middleware('usuario');      
     Route::post('rdrComprobante/deshacer','Api\RdrComprobanteController@deshacer')->middleware('usuario');      
-
+// tramites
+    Route::post('tramite/nuevo','Api\TramiteController@nuevo')->middleware('usuario');      
+    Route::post('tramite/listar','Api\TramiteController@nuevo')->middleware('usuario');      
+//movimientos
+    Route::get('movimiento/recepcinar/{id}','Api\MovimientoControler@recepcinar')->middleware('usuario');      
+    Route::get('movimiento/listar','Api\MovimientoControler@listar')->middleware('usuario')->name('listaMovimiento');      
+    Route::post('movimiento/nuevo','Api\MovimientoControler@nuevo')->middleware('usuario');      
+    Route::get('movimiento/seguimiento/{id}','Api\MovimientoControler@seguimiento')->middleware('usuario');      
 
     Route::get('proveedor/listar/{busqueda}','Api\ProveedorController@listar')->middleware('usuario');      
 

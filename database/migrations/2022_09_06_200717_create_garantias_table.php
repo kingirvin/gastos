@@ -19,7 +19,7 @@ class CreateGarantiasTable extends Migration
             $table->string('oc_os')->nullable();
             $table->string('proveedor')->nullable();
             $table->string('voucher')->nullable();
-            $table->string('siaf')->nullable();
+            $table->string('fecha')->nullable();
             $table->string('registro')->nullable();
             $table->string('monto')->nullable();
             $table->string('mes')->nullable();

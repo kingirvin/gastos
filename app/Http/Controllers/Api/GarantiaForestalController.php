@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Garantia_forestal;
+use App\Devolucion_forestal;
 use App\User;
 use Auth;
 use DataTables;
@@ -44,6 +45,7 @@ class GarantiaForestalController extends Controller
             $garantia->voucher=$request->voucher;
             $garantia->registro=$request->registro;
             $garantia->monto=$request->monto;
+            $garantia->fecha=$request->fecha;
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
             $garantia->estado=$estado;
@@ -56,6 +58,7 @@ class GarantiaForestalController extends Controller
             $garantia->voucher=$request->voucher;
             $garantia->registro=$request->registro;
             $garantia->monto=$request->monto;
+            $garantia->fecha=$request->fecha;
             $garantia->mes=$request->mes;
             $garantia->recibo=$request->recibo;
             $garantia->estado=$estado;
@@ -83,5 +86,25 @@ class GarantiaForestalController extends Controller
             ->orderBy('id', 'DESC')->get();
         $total=count($garantias);
             return response()->json(['data'=>$garantias, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+    }
+    public function eliminar(Request $request){
+        $user=Auth::user()->tipo_id;
+        if($user==1){
+            $devoluciones=Devolucion_forestal::where('garantia_id',$request->id)->delete();         
+            return Garantia_forestal::destroy($request->id);            
+        }
+        else{  
+            $garantia= Garantia_forestal::find($request->id);
+            $garantia->eliminado="1";
+            return $garantia->save();
+        }
+
+        //return $garantia=Garantia::find($request->id);
+    }
+    public function restablecer(Request $request){                
+            $garantia= Garantia_forestal::find($request->id);
+            $garantia->eliminado="0";
+            return $garantia->save();
+        //return $garantia=Garantia::find($request->id);
     }
 }

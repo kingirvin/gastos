@@ -149,8 +149,11 @@
                     <option value="Comprobantes">Comprobantes</option>
                   @else
                     <option value="">Selecione oficina</option>
-                    <option value="Garantias">Garantiass</option>
+                    <option value="Garantias">Garantias</option>
                     <option value="Devoluciones">Devoluciones</option>
+                    <option value="Caja">Caja</option>
+                    <option value="Tributos">Tributos</option>
+                    <option value="Archivo de tesoreria">Archivo de tesoreria</option>
                   @endif
                 </select>
               </div>

@@ -87,7 +87,7 @@ class AdminController extends Controller
     
                 $pdf=app('dompdf.wrapper');
                 $pdf->loadView('garantia.reporte_pdf',['garantias'=>$garantias,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
-                $pdf->set_paper('letter', 'landscape');
+                //$pdf->set_paper('letter', 'landscape');
                 //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
             // $pdf->loadHTML($pdf);
                 return $pdf->stream(); 
@@ -104,7 +104,7 @@ class AdminController extends Controller
     
                 $pdf=app('dompdf.wrapper');
                 $pdf->loadView('garantia.reporte_pdf',['garantias'=>$garantias,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
-                $pdf->set_paper('letter', 'landscape');
+                //$pdf->set_paper('letter', 'landscape');
                 //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
             // $pdf->loadHTML($pdf);
                 return $pdf->stream(); 
@@ -128,7 +128,7 @@ class AdminController extends Controller
     
                    $pdf=app('dompdf.wrapper');
                    $pdf->loadView('devolucion.reporte_pdf',['devoluciones'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
-                   $pdf->set_paper('letter', 'landscape');
+                   //$pdf->set_paper('letter', 'landscape');
                    //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
                   // $pdf->loadHTML($pdf);
                    return $pdf->stream();   
@@ -149,7 +149,7 @@ class AdminController extends Controller
     
                    $pdf=app('dompdf.wrapper');
                    $pdf->loadView('devolucion.reporte_pdf',['devoluciones'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha]);
-                   $pdf->set_paper('letter', 'landscape');
+                  // $pdf->set_paper('letter', 'landscape');
                    //$pdf .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
                   // $pdf->loadHTML($pdf);
                    return $pdf->stream();   
@@ -176,18 +176,23 @@ class AdminController extends Controller
         $menu='aprovechamiento';
         $proveedores=Proveedor::get();
         return view('comprobante.aprovechamiento',compact('menu','proveedores'));
-    }
-    
+    }    
     public function donacion(){        
         $menu='donaciones';
         $proveedores=Proveedor::get();
         return view('comprobante.donacion',compact('menu','proveedores'));
-    }
-    
+    }    
     public function comprobantes(){  
         $hoy = date("Y-m-d");
         $year=date('Y');      
         $menu='Reporte comprobante';
         return view('comprobante.reporte',compact('menu','hoy','year'));
     }
+    
+    public function garantiasDe(){   
+                   
+        $menu='derivado'; 
+        return view('garantia.garantia_derivado',compact('menu'));
+    } 
+    
 }

@@ -151,7 +151,7 @@ class ComprobanteController extends Controller
                 ->get();              
             $reporte="Reporte de Recursos Ordinarios de ".$inicio. " al ". $fin;
             $nro="0-201-018749";
-           return view('comprobante.reporte_pdf',compact('comprobantes','logo1','logo2','reporte','fecha','fecha',"nro"));
+           //return view('comprobante.reporte_pdf',compact('comprobantes','logo1','logo2','reporte','fecha','fecha',"nro"));
 
             $pdf=app('dompdf.wrapper');
             $pdf->loadView('comprobante.reporte_pdf',['comprobantes'=>$respuesta,"logo1"=>$logo1,"logo2"=>$logo2,'reporte'=>$reporte,'fecha'=>$fecha,"nro"=>$nro]);

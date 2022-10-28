@@ -17,6 +17,7 @@ function guardarCuenta() {
             proveedor:document.getElementById('proveedor').value,
             voucher:document.getElementById('voucher').value,
             registro:document.getElementById('registro').value,
+            fecha:document.getElementById('fecha').value,
             monto:document.getElementById('monto').value,
             mes:document.getElementById('mes').value,
             recibo:document.getElementById('recibo').value,
@@ -59,6 +60,7 @@ function limpiarform(){
     
     document.getElementById('id').value="0"
     document.getElementById('nro').value=""
+    document.getElementById('fecha').value=""
     document.getElementById('siafDevolucion').value=""
     document.getElementById('periodo').value=""
     document.getElementById('cheque').value=""
@@ -141,6 +143,7 @@ function modificar(id){
         document.getElementById('voucher').value=res['voucher'];
         document.getElementById('registro').value=res['registro'];
         document.getElementById('monto').value=res['monto'];
+        document.getElementById('fecha').value=res['fecha'];
         document.getElementById('mes').value=res['mes'];
         document.getElementById('recibo').value=res['recibo'];
         document.getElementById('voucher').value=res['voucher'];
@@ -230,5 +233,59 @@ function activarForm() {
     document.getElementById("form_gasto").style.pointerEvents = "auto";
     document.getElementById("btnActualizarDevolucion").style.display = "none";
     document.getElementById("btnGuardarDevolucion").style.display = "block";
+        
+}
+/*
+estado 1: */
+function eliminar(id) {    	
+    var confirmacion = confirm("Esta seguro de eliminar?");
+    if(confirmacion){
+        var datastring = {
+            id:id,
+        };
+        var route = "/json/garantiasForestal/eliminar";
+        $.ajax({
+            url: route,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'POST',
+            datatype: 'json',
+            data: datastring,
+            success: function (res) {    
+                //alerta(res.message,true); 
+                tabla.ajax.reload();               
+                $('#cargando_pagina').hide();
+            },
+            error: function (error) {
+                //alerta(response_helper(error),false);
+                $('#cargando_pagina').hide();
+            }
+        });
+    }
+        
+}
+function restablecer(id) {    	
+    var confirmacion = confirm("Esta seguro de restablecer?");
+    if(confirmacion){
+        var datastring = {
+            id:id,
+        };
+        var route = "/json/garantiasForestal/restablecer";
+        $.ajax({
+            url: route,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'POST',
+            datatype: 'json',
+            data: datastring,
+            success: function (res) {    
+                //alerta(res.message,true); 
+                tabla.ajax.reload();               
+                $('#cargando_pagina').hide();
+            },
+            error: function (error) {
+                //alerta(response_helper(error),false);
+                $('#cargando_pagina').hide();
+            }
+        });
+    }
         
 }

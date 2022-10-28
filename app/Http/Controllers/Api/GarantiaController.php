@@ -23,7 +23,7 @@ class GarantiaController extends Controller
     public function listar() 
     { 
         //3:ADMIN, 2:INSTITUCIONAL, 1:EMPRESA, 0:PUBLICO
-        $lista=Garantia::with('devoluciones')->orderBy('id', 'DESC')->get();
+        $lista=Garantia::with('devoluciones','tramite')->orderBy('id', 'DESC')->get();
         return DataTables::of($lista)->ToJson();        
     }
     public function nuevo(Request $request) 
@@ -49,6 +49,7 @@ class GarantiaController extends Controller
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
             $garantia->siaf=$request->siaf;
+            $garantia->fecha=$request->fecha;
             $garantia->registro=$request->registro;
             $garantia->monto=$request->monto;
             $garantia->mes=$request->mes;
@@ -63,6 +64,7 @@ class GarantiaController extends Controller
             $garantia->proveedor=$request->proveedor;
             $garantia->voucher=$request->voucher;
             $garantia->siaf=$request->siaf;
+            $garantia->fecha=$request->fecha;
             $garantia->registro=$request->registro;
             $garantia->monto=$request->monto;
             $garantia->mes=$request->mes;
@@ -83,25 +85,43 @@ class GarantiaController extends Controller
         $garantia= Garantia::select('id','oc_os as text')->orderBy('id', 'DESC')->get();
         return response()->json([$garantia]);
     }
-    public function reporteBuscar(Request $request){   
-        if($request->id==1)  {   
-            $garantias= Garantia::whereYear('created_at', substr($request->inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
-                ->whereMonth('created_at','<=', substr($request->fin,5,2))
-                ->whereDay('created_at','>' , substr($request->inicio,8,2))
-                ->whereDay('created_at','<=', substr($request->fin,8,2))
-                ->orderBy('id', 'DESC')->get();
+    public function reporteBuscar(Request $request){    
+        if($request->id==1)  { 
+            $garantias= Garantia::whereBetween('fecha', [$request->inicio,$request->fin])
+                ->orderBy('id', 'DESC')->get();  
+            /*$garantias= Garantia::whereYear('fecha', substr($request->inicio,0,4))
+                ->whereMonth('fecha','>=' ,substr( $request->inicio,5,2))
+                ->whereMonth('fecha','<=', substr($request->fin,5,2))
+                ->whereDay('fecha','>' , substr($request->inicio,8,2))
+                ->whereDay('fecha','<=', substr($request->fin,8,2))
+                ->orderBy('id', 'DESC')->get();*/
             $total=count($garantias);
         }
         else {   
-            $garantias= Garantia_forestal::whereYear('created_at', substr($request->inicio,0,4))
-                ->whereMonth('created_at','>=' ,substr( $request->inicio,5,2))
-                ->whereMonth('created_at','<=', substr($request->fin,5,2))
-                ->whereDay('created_at','>' , substr($request->inicio,8,2))
-                ->whereDay('created_at','<=', substr($request->fin,8,2))
-                ->orderBy('id', 'DESC')->get();
+            $garantias= Garantia_forestal::whereBetween('fecha', [$request->inicio,$request->fin])
+            ->orderBy('id', 'DESC')->get(); 
             $total=count($garantias);
         }
             return response()->json(['data'=>$garantias, "recordsTotal"=>$total,"recordsFiltered"=>$total]);
+    }
+    public function eliminar(Request $request){
+        $user=Auth::user()->tipo_id;
+        if($user==1){
+            $devoluciones=Devolucion::where('garantia_id',$request->id)->delete();         
+            return Garantia::destroy($request->id);            
+        }
+        else{  
+            $garantia= Garantia::find($request->id);
+            $garantia->eliminado="1";
+            return $garantia->save();
+        }
+
+        //return $garantia=Garantia::find($request->id);
+    }
+    public function restablecer(Request $request){                
+            $garantia= Garantia::find($request->id);
+            $garantia->eliminado="0";
+            return $garantia->save();
+        //return $garantia=Garantia::find($request->id);
     }
 }

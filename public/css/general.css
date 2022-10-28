@@ -1,0 +1,45 @@
+.paso {
+    display: inline-block;
+    vertical-align: top;
+    background: #f0f2f6;
+}
+.primero {
+    margin: 0 1rem;
+}
+.siguientes {
+    white-space: nowrap;
+}
+.cv_linea {
+    width: 50%;
+    height: 1rem;
+    border-right: 1px dashed #8c8c8c;
+}
+.s_box {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.s_box_id {
+    position: absolute;
+    font-size: .625rem;
+    font-weight: 500;
+    left: 5px;
+    bottom: 5px;
+    line-height: 1;
+}
+.paso.izquierda::before {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 1px;
+    border-top: 1px dashed #8c8c8c;
+    float: right;
+}
+.paso.derecha::before {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 1px;
+    border-top: 1px dashed #8c8c8c;
+    float: left;
+}

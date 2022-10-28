@@ -43,7 +43,7 @@ class LoginController extends Controller
             elseif(Auth::user()->oficina=="Garantias"||Auth::user()->oficina=="Devoluciones")//Garantias
                 return '/vista/garantias';            
             else//comprobantes
-                return '/vista/ro_comprobantes';
+                return '/vista/garantiasDe';
         }  
         else
             return 'vista/error_estado';            

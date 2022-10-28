@@ -12,6 +12,7 @@ class Garantia_forestal extends Model
         'oc_os',
         'proveedor',
         'voucher',
+        'fecha',
         'siaf',
         'registro',
         'monto',
@@ -19,6 +20,8 @@ class Garantia_forestal extends Model
         'recibo',
         'estado',
         'user_id',
+        'eliminado',
+        'estado_d',
     ]; 
     
     protected $table='garantia_forestales';  
@@ -31,5 +34,9 @@ class Garantia_forestal extends Model
     public function devoluciones()
     {
         return $this->hasMany('App\Devolucion_forestal', 'garantia_id');
+    }
+    public function tramite()
+    {
+        return $this->hasMany('App\Tramite', 'garantia_id');
     }
 }

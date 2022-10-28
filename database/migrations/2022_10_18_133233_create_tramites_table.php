@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProveedorsTable extends Migration
+class CreateTramitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateProveedorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('tramites', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
-            $table->string('ruc')->nullable();
-            $table->tinyInteger('estado')->default('1');
+            $table->string('tabla')->nullable();
             $table->unsignedBigInteger('user_id');  
-            $table->timestamps();            
+            $table->unsignedBigInteger('garantia_id'); 
+            $table->timestamps();
+
+            
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -31,6 +32,6 @@ class CreateProveedorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proveedores');
+        Schema::dropIfExists('tramites');
     }
 }
